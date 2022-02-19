@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { registerOM, login, logout } = require('./auth');
+const { registerOM, login, logout,getOMUserFromToken } = require('./auth');
 const {
     addColleges,
     blockColleges,
@@ -23,6 +23,8 @@ router.get('/test', (req, res) => {
 router.post('/om/register', registerOM);
 router.post('/om/login', login);
 router.post('/om/logout', logout);
+router.get('/om/getomuser',isOMLoggedIn,getOMUserFromToken)
+
 
 //Get/Add/Block College Routes
 router.get('/om/getcolleges', isOMLoggedIn, getColleges);
@@ -32,10 +34,11 @@ router.post('/om/blockcollege', isOMLoggedIn, blockColleges);
 //Get All unverified User
 router.get('/om/getunverifiedusers', isOMLoggedIn, getUnverifiedUsers);
 //Get All rejected User
-router.get('/om/getrejectedusers', getRejectedUsers);
+router.get('/om/getrejectedusers',isOMLoggedIn,getRejectedUsers);
 
 //Verify/Reject User
 router.post('/om/verify', isOMLoggedIn, verifyUser);
 router.post('/om/reject', isOMLoggedIn, rejectUser);
+
 
 module.exports = router;

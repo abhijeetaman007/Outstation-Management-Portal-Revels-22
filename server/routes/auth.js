@@ -17,8 +17,7 @@ const registerOM = async (req, res) => {
                     token: '',
                 });
                 await newUser.save();
-                let message =
-                    `You are registered to OM portal please keep the credentials safely for using Outstation Management Portal <br/> <b>ID: ${newUser.email}</b> \n <br/> <b>Password: ${newUser.password}</b>`;
+                let message = `You are registered to OM portal please keep the credentials safely for using Outstation Management Portal <br/> <b>ID: ${newUser.email}</b> \n <br/> <b>Password: ${newUser.password}</b>`;
                 mailer(
                     newUser.email,
                     "Registered to OM portal - REVELS '22",
@@ -101,4 +100,22 @@ const logout = async (req, res) => {
             .send({ success: false, msg: 'Internal Server Error' });
     }
 };
-module.exports = { registerOM, login, logout };
+
+const getOMUserFromToken = async (req, res) => {
+    try {
+        let token = req.headers['authorization'];
+        let user = await OMUser.findOne({ token },{password:0,token:0});
+        if (!user)
+            return res
+                .status(400)
+                .send({ success: false, msg: 'Token Invalid' });
+        return res.status(200).send({ success: true, data: user });
+    } catch (err) {
+        console.log(err);
+        return res
+            .status(500)
+            .send({ success: false, msg: 'Internal Server Error' });
+    }
+};
+
+module.exports = { registerOM, login, logout,getOMUserFromToken };
