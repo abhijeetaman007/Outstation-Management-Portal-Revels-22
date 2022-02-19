@@ -10,10 +10,8 @@ const isOMLoggedIn = async (req, res,next) => {
             let payload = await jwt.verify(token, process.env.JWT_SECRET);
             console.log('Payload ', payload);
             if (payload) {
-                // console.log('id:', payload.user_id);
-                let user = await OMUser.findById(payload.user_id);
-                console.log('here ', user);
-                if (user) {
+                let user = await OMUser.findOne({token})
+                if (user && (user._id == payload.user_id)) {
                     req.requestOM = user;
                     next();
                 } else {

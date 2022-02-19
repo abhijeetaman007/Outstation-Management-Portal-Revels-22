@@ -20,10 +20,15 @@ const addColleges = async (req, res) => {
     try {
         let { colleges } = req.body;
         colleges.forEach(async (college) => {
-            let newCollege = new College({
-                name: college.name,
-            });
-            await newCollege.save();
+            try {
+                let newCollege = new College({
+                    name: college.name,
+                });
+                await newCollege.save();
+            } catch (err) {
+                if (err.name === 'MongoServerError' && err.code === 11000)
+                    console.log(`${college.name} is already added `);
+            }
         });
         return res
             .status(200)

@@ -25,10 +25,17 @@ const registerOM = async (req, res) => {
                 );
             } catch (err) {
                 console.log(err);
-                return res.status(500).send({
-                    success: false,
-                    msg: 'Internal Server Error',
-                });
+                if (err.name === 'MongoServerError' && err.code === 11000)
+                {
+                    console.log(`${user.email} already exists `);
+                }
+                else
+                {
+                    return res.status(500).send({
+                        success: false,
+                        msg: 'Internal Server Error',
+                    });
+                }
             }
         });
         return res.send({ success: true, msg: 'OM Users registered' });
