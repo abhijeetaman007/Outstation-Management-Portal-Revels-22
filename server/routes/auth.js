@@ -1,24 +1,29 @@
-const OMUser = require('../models/OMUser')
-const {mailer} = require('../utils/mailer')
+const OMUser = require('../models/OMUser');
+var jwt = require('jsonwebtoken');
+const { mailer } = require('../utils/mailer');
 
-const registerOM = async(req,res) =>{
-    try
-    {
-        let {users} = req.body
+const registerOM = async (req, res) => {
+    try {
+        let { users } = req.body;
         users.forEach(async (user) => {
             try {
                 const pass = Math.random().toString(36).substring(1, 9);
                 const newUser = new OMUser({
-                    name = user.name,
-                    email = user.email,
-                    password = pass,
-                    contact = user.contact,
-                    regNo = user.regNo,
-                    token = ''
-                })
+                    name: user.name,
+                    email: user.email,
+                    password: pass,
+                    contact: user.contact,
+                    regNo: user.regNo,
+                    token: '',
+                });
                 await newUser.save();
-                let message = 'You are registered to OM portal please keep the credentials safely for using Outstation Management Portal'
-                mailer(newUser.email, "Registered to OM portal - REVELS '22", message);
+                let message =
+                    `You are registered to OM portal please keep the credentials safely for using Outstation Management Portal <br/> <b>ID: ${newUser.email}</b> \n <br/> <b>Password: ${newUser.password}</b>`;
+                mailer(
+                    newUser.email,
+                    "Registered to OM portal - REVELS '22",
+                    message
+                );
             } catch (err) {
                 console.log(err);
                 return res.status(500).send({
@@ -34,17 +39,15 @@ const registerOM = async(req,res) =>{
             .status(500)
             .send({ success: false, msg: 'Internal Server Error' });
     }
-}
+};
 
 const login = async (req, res) => {
     try {
-        let {email,password} = req.body
+        let { email, password } = req.body;
         const user = await OMUser.findOne({
-            email
+            email,
         });
-        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-                email
-            ))
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
             return res
                 .status(400)
                 .send({ success: false, msg: 'Please enter a valid email' });
@@ -55,7 +58,7 @@ const login = async (req, res) => {
 
         let payload = {
             email,
-            user_id = user._id
+            user_id: user._id,
         };
         let token = jwt.sign(payload, process.env.JWT_SECRET, {
             expiresIn: 6 * 60 * 60,
@@ -75,8 +78,8 @@ const login = async (req, res) => {
     }
 };
 
-const logout = async(req,res) =>{
-    try{
+const logout = async (req, res) => {
+    try {
         let token = req.headers['authorization'];
         let user = await OMUser.findOne({ token });
         if (user) {
@@ -91,11 +94,11 @@ const logout = async(req,res) =>{
                 .status(400)
                 .send({ success: false, msg: 'Not Logged In' });
         }
+    } catch (err) {
+        console.log(err);
+        return res
+            .status(500)
+            .send({ success: false, msg: 'Internal Server Error' });
     }
-    catch(err)
-    {
-        console.log(err)
-        return res.status(500).send({success:false,msg:'Internal Server Error'})
-    }
-}
-module.exports = {registerOM,login,logout}
+};
+module.exports = { registerOM, login, logout };
