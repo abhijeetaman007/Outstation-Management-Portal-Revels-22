@@ -4,6 +4,10 @@ const CollegeSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true
+    },
+    isMahe:{
+        type:boolean,
+        default:false
     }
 })
 module.exports = College = mongoose.model('College', CollegeSchema);
