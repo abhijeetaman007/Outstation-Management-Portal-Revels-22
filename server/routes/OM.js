@@ -15,24 +15,45 @@ const getColleges = async (req, res) => {
     }
 };
 
-//Add Colleges
+//Add Colleges 
+// const addColleges = async (req, res) => {
+//     try {
+//         let { colleges } = req.body;
+//         colleges.forEach(async (college) => {
+//             try {
+//                 let newCollege = new College({
+//                     name: college.name,
+//                 });
+//                 await newCollege.save();
+//             } catch (err) {
+//                 if (err.name === 'MongoServerError' && err.code === 11000)
+//                     console.log(`${college.name} is already added `);
+//             }
+//         });
+//         return res
+//             .status(200)
+//             .send({ success: true, msg: "College Added For Revels'22" });
+//     } catch (err) {
+//         console.log(err);
+//         return res
+//             .status(500)
+//             .send({ success: false, msg: 'Internal Server Error' });
+//     }
+// };
+
+//add college - ishan
 const addColleges = async (req, res) => {
     try {
-        let { colleges } = req.body;
-        colleges.forEach(async (college) => {
-            try {
-                let newCollege = new College({
-                    name: college.name,
-                });
-                await newCollege.save();
-            } catch (err) {
-                if (err.name === 'MongoServerError' && err.code === 11000)
-                    console.log(`${college.name} is already added `);
-            }
+        
+        let college = await College.findOne({name : req.body.name});
+        if (college) return res.status(401).json({success: false, msg: "College Already Registered" });
+        let  newcollege = new College({
+            name: req.body.name,
         });
+        await newcollege.save();
         return res
             .status(200)
-            .send({ success: true, msg: "Colleges Added For Revels'22" });
+            .send({ success: true, msg: "College Added For Revels'22" });
     } catch (err) {
         console.log(err);
         return res
@@ -40,20 +61,13 @@ const addColleges = async (req, res) => {
             .send({ success: false, msg: 'Internal Server Error' });
     }
 };
+
+
 //Block Colleges
 const blockColleges = async (req, res) => {
     try {
-        let { colleges } = req.body;
-        colleges.forEach(async (college) => {
-            try {
-                console.log(college.name);
-                console.log(college);
-                await College.deleteOne({ name: college.name });
-            } catch (err) {
-                console.log(err);
-            }
-        });
-        return res.status(200).send({ success: true, msg: 'Colleges Blocked' });
+        await College.deleteOne({ name: req.body.name});
+        return res.status(200).send({ success: true, msg: 'College Blocked' });
     } catch (err) {
         console.log(err);
         return res
@@ -61,6 +75,8 @@ const blockColleges = async (req, res) => {
             .send({ success: false, msg: 'Internal Server Error' });
     }
 };
+
+
 //get All NonMAHE Users
 const getUnverifiedUsers = async (req, res) => {
     try {

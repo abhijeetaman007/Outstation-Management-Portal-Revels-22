@@ -3,8 +3,14 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+    font-family: 'Playfair Display', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./assets/landing.png");
+  background-color: #000000;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100vh;
 }
 
 code {

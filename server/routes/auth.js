@@ -4,7 +4,9 @@ const { mailer } = require('../utils/mailer');
 
 const registerOM = async (req, res) => {
     try {
-        let { users } = req.body;
+        let users = [];
+         users  = req.body;
+        console.log(req.body);
         users.forEach(async (user) => {
             try {
                 const pass = Math.random().toString(36).substring(1, 9);
@@ -57,10 +59,10 @@ const login = async (req, res) => {
             return res
                 .status(400)
                 .send({ success: false, msg: 'Please enter a valid email' });
-        if (!user) return res.status(401).json({ msg: 'Email Not Registered' });
+        if (!user) return res.status(401).json({ success: false , msg: 'Email Not Registered' });
 
         const isValid = password == user.password;
-        if (!isValid) return res.status(401).json({ msg: 'Invalid password' });
+        if (!isValid) return res.status(401).json({ success: false, msg: 'Invalid password' });
 
         let payload = {
             email,

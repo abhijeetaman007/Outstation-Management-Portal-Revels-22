@@ -1,0 +1,192 @@
+.landingpage {
+  background-image: url("../assets/landing.png");
+  background-color: #000000;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+.top-center {
+  position: fixed;
+  left: 50%;
+  top: 50px;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  color: #f8f8f8;
+}
+.top-center h1 {
+  font-size: 40px;
+  text-shadow: 2px 2px 0px #c31432;
+  mix-blend-mode: screen;
+  animation: fadeIn 2.5s linear forwards;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+.content {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 150px;
+  max-height: 300px;
+  align-items: center;
+}
+
+.logo-box {
+  flex-basis: 35%;
+}
+.logo-box img {
+  height: 200px;
+}
+.logo-box h1 {
+  color: white;
+  font-size: 20px;
+}
+form h2 {
+  color: rgb(201, 201, 201);
+}
+.auth-box {
+  flex-basis: 35%;
+}
+.verticalLine {
+  border-left: 2px solid rgb(201, 201, 201);
+  height: 70%;
+}
+form {
+  opacity: 1;
+
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  padding: 20px 0;
+}
+
+form button {
+  background-color: rgb(201, 201, 201);
+  color: #000;
+  padding: 8px 20px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+form button:hover {
+  background-color: white;
+}
+
+.login-field {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.login-icon {
+  position: absolute;
+  top: 30px;
+
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#c31432),
+    to(#240b36)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-input {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background: none;
+  padding: 10px;
+  padding-left: 24px;
+  font-size: 15px;
+  font-weight: 500;
+  width: 75%;
+  transition: 0.2s;
+  color: white;
+  opacity: 0.8;
+}
+
+.login-input:active,
+.login-input:focus,
+.login-input:hover {
+  outline: none;
+  border-image: linear-gradient(to right, #c31432 0%, #240b36 100%);
+  opacity: 1;
+  border-image-slice: 1;
+}
+
+.bottom-center {
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-50%, 0);
+  margin: 0 auto;
+}
+.bottom-center img {
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+
+
+.icons .fa {
+  size: 40px;
+  cursor: pointer;
+  padding: 0 10px;
+}
+.fa-facebook {
+  color: rgb(66, 103, 178);
+}
+.fa-google {
+  background: conic-gradient(
+      from -45deg,
+      #ea4335 110deg,
+      #4285f4 90deg 180deg,
+      #34a853 180deg 270deg,
+      #fbbc05 270deg
+    )
+    73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.fa-instagram {
+  color: transparent;
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  background: -webkit-radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}

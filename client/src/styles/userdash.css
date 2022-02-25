@@ -1,0 +1,139 @@
+.user-dash{
+    color: white;
+    height: 100vh;
+    text-align: center;
+}
+.user-dash h1 {
+    font-size: 40px;
+    text-shadow: 2px 2px 0px #c31432;
+    mix-blend-mode: screen;
+    animation: fadeIn 2.5s linear forwards;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+  .user-dash p {
+      font-size: 20px;
+       color: rgb(201, 201, 201);;
+  }
+  .user-dash p span {
+      color: #c31432;
+  }
+  .user-dash p button {
+    background-color: transparent;
+    color: white;
+    padding: 8px 20px;
+    margin-left: 25px;
+    font-size: 16px;
+    border-radius: 5px white;
+    border: 1px solid white;
+    cursor: pointer;
+  }
+  .user-dash p button:hover {
+    background-color: white;
+    color: black;
+  
+  }  
+.tabs-section {
+    width: 80%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.tab{
+  
+  font-size: 20px;
+  padding: 15px 30px;
+  border-radius: 10px;
+  border : 1px solid white;
+  margin: 0 5px;
+  transition: 0.4s ease-out;
+  cursor: pointer;
+  border: 10px solid;
+  border-image-slice: 1;
+  border-width: 4px;
+  border-image-source: linear-gradient(to left, #743ad5, #d53a9d );
+  color: white;
+}
+.inactive {
+  color: rgb(201, 201, 201);
+  border-width: 1px;
+}
+
+.tab-content {
+    width: 80%;
+    margin: 30px auto;
+    height: 50vh;
+}
+.fa{
+  margin-right: 10px;
+  size: 10px;
+}
+.fa-university {
+  color:  orange;
+}
+.fa-ban {
+  color: red;
+}
+.fa-info {
+  color: blue;
+}
+
+.college {
+  width: 60%;
+  margin: 10px auto;
+  background-color: black;
+  padding: 1px 0;
+  border-radius: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+}
+.college h2{
+  font-size: 20px;
+  margin-left: 30px;
+}
+.college .fa {
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 30px;
+  color: red;
+}
+.add-college input{
+  width: 40%;
+}
+.add-college button {
+  background-color: blue;
+    color: white;
+    padding: 8px 20px;
+    margin-left: 25px;
+    font-size: 16px;
+    border-radius: 5px ;
+    border: none;
+    cursor: pointer;
+}
+.add-college{
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  background-color: black;
+  border-radius: 10px;
+  padding: 20px 0;
+}
+.add-college label {
+  display: flex;
+}
+.add-college
+input{
+  padding-left: 0;
+}
