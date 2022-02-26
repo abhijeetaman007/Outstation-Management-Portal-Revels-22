@@ -7,6 +7,7 @@ function CollegeList() {
   const [collges, setcollges] = useState([]);
   const [collegeName, setcollegeName] = useState("");
   const [searchCollege, setsearchCollege] = useState("");
+  const [isMahe, setisMahe] = useState(false)
   const getCollegeList = async () => {
     try {
       const res = await axios.get(`/om/getcolleges`, {
@@ -29,11 +30,11 @@ function CollegeList() {
       });
       return;
     }
-
+   console.log(isMahe);
     try {
       const res = await axios.post(
         `/om/addcollege`,
-        { name: collegeName },
+        { name: collegeName , isMahe : isMahe},
         {
           headers: {
             authorization: `${localStorage.getItem("tokenid=")}`,
@@ -46,6 +47,7 @@ function CollegeList() {
         //console.log(res.data.category);
         //navigate(`/admin/sdd`);
         setcollegeName("");
+        setisMahe(false);
         getCollegeList();
       } else {
         toast.error(res.data.msg, { id: toastId });
@@ -99,7 +101,7 @@ function CollegeList() {
         />
         <label>
           Under MAHE?
-          <input type="checkbox" />
+          <input type="checkbox" checked={isMahe} onChange={()=>setisMahe(!isMahe)} />
         </label>
         <button onClick={addCollege}>Add College</button>
       </div>
@@ -119,7 +121,7 @@ function CollegeList() {
       }).map((clg, ind) => {
         return (
           <div className="college">
-            <h2>{clg.name}</h2>
+            <h2 className={clg.isMahe ? "isMahe": ""}>{clg.name}</h2>
             <i className="fa" onClick={(e) => blockCollege(e, `${clg.name}`)}>
               block
             </i>

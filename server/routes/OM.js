@@ -45,10 +45,11 @@ const getColleges = async (req, res) => {
 const addColleges = async (req, res) => {
     try {
         
-        let college = await College.findOne({name : req.body.name});
+        let college = await College.findOne({name : req.body.name });
         if (college) return res.status(401).json({success: false, msg: "College Already Registered" });
         let  newcollege = new College({
             name: req.body.name,
+             isMahe : req.body.isMahe
         });
         await newcollege.save();
         return res

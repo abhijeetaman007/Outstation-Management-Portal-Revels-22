@@ -49,7 +49,7 @@
 }
 
 .tab{
-  
+  background: linear-gradient(to left, #743ad5, #d53a9d);
   font-size: 20px;
   padding: 15px 30px;
   border-radius: 10px;
@@ -64,6 +64,7 @@
   color: white;
 }
 .inactive {
+  background: transparent;
   color: rgb(201, 201, 201);
   border-width: 1px;
 }
@@ -108,6 +109,9 @@
   margin-right: 30px;
   color: red;
 }
+.college .isMahe {
+  color: #e8590c;
+}
 .add-college input{
   width: 40%;
 }
@@ -137,3 +141,5 @@
 input{
   padding-left: 0;
 }
+
+

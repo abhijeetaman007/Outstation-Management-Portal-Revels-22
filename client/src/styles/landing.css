@@ -57,6 +57,60 @@ form h2 {
 }
 .auth-box {
   flex-basis: 35%;
+  min-width: 300px;
+}
+@media (max-width: 1200px) {
+  .content{
+    width: 80%;
+  }
+  .auth-box {
+    flex-basis: 40%;
+  }
+  .top-center h1 {
+    font-size: 33px;
+  }
+
+}
+@media (max-width: 800px) {
+  .content{
+    width: 90%;
+  }
+}
+@media (max-width: 620px) {
+  .content{
+    width: 100%;
+    flex-direction: column;
+    margin-top: 80px;
+  }
+  .top-center h1 {
+    font-size: 20px;
+  }
+  .logo-box img{
+    position: fixed;
+    top: 20px;
+    left: 15px;
+   height: 60px;
+  }
+  .logo-box h1 {
+    display: none;
+  }
+  .auth-box{
+    width: 80%;
+    margin-top: 60px;
+    /* position:fixed;
+    top: 50%;
+    left: 50%;
+    height:18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    /*margin-left: -150px; */
+  }
+  .verticalLine {
+    display: none;
+  }
+  .bottom-center{
+    width: 100%;
+  }
+  
 }
 .verticalLine {
   border-left: 2px solid rgb(201, 201, 201);
@@ -190,3 +244,6 @@ form button:hover {
   background-clip: text;
   -webkit-background-clip: text;
 }
+
+
+

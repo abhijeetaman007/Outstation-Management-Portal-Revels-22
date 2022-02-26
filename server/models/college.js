@@ -6,7 +6,7 @@ const CollegeSchema = new mongoose.Schema({
         unique:true
     },
     isMahe:{
-        type:boolean,
+        type : Boolean,
         default:false
     }
 })

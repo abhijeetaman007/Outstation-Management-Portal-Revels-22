@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/landing.css";
-import logo from "../assets/sc-logo.png";
+import logo from "../assets/revels-logo.png";
 import mitlogo from "../assets/mit-logo.png";
 
 import { useAuth } from "../context/AuthContext";
