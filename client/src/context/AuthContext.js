@@ -24,13 +24,11 @@ export default function AuthProvider({ children }) {
           },
         });
         if (res.data.success) {
-          console.log("from 30");
-
           setuser(res.data.data);
           setLoading(false);
           navigate(`/dashboard/`);
         }
-        // } else {
+        //  else {
         //   // CHANGE THIS
         //   alert("couldnt set category on login");
         // }
@@ -65,7 +63,6 @@ export default function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    console.log("here");
     try {
       setuser(null);
       localStorage.removeItem("tokenid=");

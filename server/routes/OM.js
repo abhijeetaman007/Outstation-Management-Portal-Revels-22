@@ -177,10 +177,10 @@ const rejectUser = async (req, res) => {
 
         // Reject Mail
         let sendMsg = `Your verification has been rejected, found issues in following documents, please upload them again \n ${message}`;
-        mailer(newUser.email, "Verify Email - REVELS '22", sendMsg);
+        mailer(user.email, "Verify Email - REVELS '22", sendMsg);
 
         //TODO: Rejection message to be pushed as notification
-        return res.status(200).send({ success: false, msg: 'User Rejected' });
+        return res.status(200).send({ success: true, msg: 'User Rejected' });
     } catch (err) {
         console.log(err);
         return res

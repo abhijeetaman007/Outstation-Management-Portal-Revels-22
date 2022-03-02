@@ -31,7 +31,6 @@ function CollegeList() {
       });
       return;
     }
-    console.log(isMahe);
     try {
       const res = await axios.post(
         `/om/addcollege`,
