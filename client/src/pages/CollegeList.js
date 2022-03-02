@@ -7,7 +7,8 @@ function CollegeList() {
   const [collges, setcollges] = useState([]);
   const [collegeName, setcollegeName] = useState("");
   const [searchCollege, setsearchCollege] = useState("");
-  const [isMahe, setisMahe] = useState(false)
+  const [expanded, setexpanded] = useState(false);
+  const [isMahe, setisMahe] = useState(false);
   const getCollegeList = async () => {
     try {
       const res = await axios.get(`/om/getcolleges`, {
@@ -30,11 +31,11 @@ function CollegeList() {
       });
       return;
     }
-   console.log(isMahe);
+    console.log(isMahe);
     try {
       const res = await axios.post(
         `/om/addcollege`,
-        { name: collegeName , isMahe : isMahe},
+        { name: collegeName, isMahe: isMahe },
         {
           headers: {
             authorization: `${localStorage.getItem("tokenid=")}`,
@@ -48,6 +49,7 @@ function CollegeList() {
         //navigate(`/admin/sdd`);
         setcollegeName("");
         setisMahe(false);
+        setexpanded(false);
         getCollegeList();
       } else {
         toast.error(res.data.msg, { id: toastId });
@@ -91,43 +93,61 @@ function CollegeList() {
   }, []);
   return (
     <div>
-      <div className="add-college">
-        <input
-          type="text"
-          class="login-input"
-          placeholder="Enter College Name"
-          value={collegeName}
-          onChange={(e) => setcollegeName(e.target.value)}
-        />
-        <label>
-          Under MAHE?
-          <input type="checkbox" checked={isMahe} onChange={()=>setisMahe(!isMahe)} />
-        </label>
-        <button onClick={addCollege}>Add College</button>
+      <div className="add-college-btn">
+        <div className="unverified-header">
+          <p>Add College</p>
+          <i
+            className={expanded ? "fa fa-minus" : "fa fa-plus"}
+            onClick={() => setexpanded(!expanded)}
+          ></i>
+        </div>
+        <div className={expanded ? "extended" : "not-extended"}>
+          <div className="add-college">
+            <input
+              type="text"
+              className="login-input start-label"
+              placeholder="Enter College Name"
+              value={collegeName}
+              onChange={(e) => setcollegeName(e.target.value)}
+            />
+            <label>
+              Under MAHE?
+              <input
+                type="checkbox"
+                checked={isMahe}
+                onChange={() => setisMahe(!isMahe)}
+              />
+            </label>
+            <button onClick={addCollege}>Add </button>
+          </div>
+        </div>
       </div>
-      <div style={{ width: "40%", margin: "20px auto" }}>
+
+      <div className="search-box">
         <input
           type="text"
-          class="login-input"
+          class="login-input start-label"
           placeholder="Search"
           value={searchCollege}
           onChange={(e) => setsearchCollege(e.target.value)}
         />
         <i class="fa fa-search "></i>
       </div>
-      {collges.filter((clg) => {
+      {collges
+        .filter((clg) => {
           const searchTerm = clg.name;
           return searchTerm.toLowerCase().includes(searchCollege.toLowerCase());
-      }).map((clg, ind) => {
-        return (
-          <div className="college">
-            <h2 className={clg.isMahe ? "isMahe": ""}>{clg.name}</h2>
-            <i className="fa" onClick={(e) => blockCollege(e, `${clg.name}`)}>
-              block
-            </i>
-          </div>
-        );
-      })}
+        })
+        .map((clg, ind) => {
+          return (
+            <div className="college">
+              <h2 className={clg.isMahe ? "isMahe" : ""}>{clg.name}</h2>
+              <i className="fa" onClick={(e) => blockCollege(e, `${clg.name}`)}>
+                block
+              </i>
+            </div>
+          );
+        })}
     </div>
   );
 }

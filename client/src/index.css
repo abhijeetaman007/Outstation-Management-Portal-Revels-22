@@ -6,7 +6,11 @@ body {
     font-family: 'Playfair Display', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("./assets/landing.png");
+  background: url("./assets/landing.png") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   background-color: #000000;
   background-repeat: no-repeat;
   background-size: 100% 100%;

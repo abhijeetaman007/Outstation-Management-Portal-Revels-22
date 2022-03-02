@@ -1,6 +1,6 @@
 .user-dash{
     color: white;
-    height: 100vh;
+    height: 100%;
     text-align: center;
 }
 .user-dash h1 {
@@ -46,13 +46,14 @@
     margin: 0 auto;
     justify-content: space-around;
     margin-top: 30px;
+    overflow: auto;
 }
 
 .tab{
   background: linear-gradient(to left, #743ad5, #d53a9d);
   font-size: 20px;
-  padding: 15px 30px;
-  border-radius: 10px;
+  padding: 10px 20px;
+  
   border : 1px solid white;
   margin: 0 5px;
   transition: 0.4s ease-out;
@@ -72,7 +73,7 @@
 .tab-content {
     width: 80%;
     margin: 30px auto;
-    height: 50vh;
+    
 }
 .fa{
   margin-right: 10px;
@@ -99,9 +100,48 @@
   align-items: center;
   text-align: left;
 }
+@media (max-width: 1000px) {
+  .college{
+    width: 80%;
+  }
+  .top h1 {
+    font-size: 30px;
+  }
+}
+
 .college h2{
-  font-size: 20px;
+  font-size: 1.3rem;
   margin-left: 30px;
+}
+.search-box{
+  width: 40%;
+   margin: 20px auto;
+}
+@media (max-width: 615px) {
+  .college{
+    width: 100%;
+  }
+  .college h2{
+    font-size: 15px;
+  }
+  .top h1 {
+    font-size: 23px;
+  }
+  .search-box{
+    width: 100%;
+     margin: 20px auto;
+  }
+}
+
+.unverified-header h2{
+  font-size: 1.3rem;
+  margin-left: 30px;
+}
+.unverified-header .fa{
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 30px;
+  color: red;
 }
 .college .fa {
   cursor: pointer;
@@ -109,37 +149,137 @@
   margin-right: 30px;
   color: red;
 }
-.college .isMahe {
+ .isMahe {
   color: #e8590c;
 }
-.add-college input{
-  width: 40%;
-}
+
 .add-college button {
   background-color: blue;
     color: white;
     padding: 8px 20px;
-    margin-left: 25px;
+   margin: 10px auto;
     font-size: 16px;
     border-radius: 5px ;
     border: none;
     cursor: pointer;
 }
 .add-college{
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
+  margin-top: 20px;
   background-color: black;
   border-radius: 10px;
-  padding: 20px 0;
 }
 .add-college label {
+  margin: 10px auto;
   display: flex;
+  justify-content: center;
 }
-.add-college
-input{
+
+
+
+.unverified{
+  width: 60%;
+  margin: 10px auto;
+  background-color: black;
+  padding: 1px 0;
+  border-radius: 20px;
+  
+}
+.unverified-header{
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+.unverified-content{
+  width: 60%;
+  margin: 0px auto;
+  background-color: black;
+}
+.unverified-header h2{
+  color: red;
+}
+.unverified-header p{ margin: 0 auto;
+font-size: 0.9rem;
+}
+.unverified-header h2 p{
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.not-extended{
+  display: none;
+
+}
+.user-dets{
+  display: flex;
+  justify-content: space-around;
+}
+.verify {
+
+  
+  background-color: green;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.reject {
+  background-color: red;
+}
+
+.add-college-btn{
+  background-color: black;
+  width: 250px;
+  margin: 0 auto;
+  padding: 15px 0;
+  border-radius: 10px;
+}
+
+.start-label {
   padding-left: 0;
 }
+.user-left, .user-right{
+  text-align: left;
+}
+.user-dets .fa{
+  color: rgba(255, 0, 0, 0.7);
+}
+.btns{
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.doc-img {
+display: flex;
+justify-content: center;
+width: 100%;
+overflow: auto;
+height: 200px;
+margin-bottom: 20px;
+}
+.doc-img img {
+  margin: 0 10px;
+}
+
+.top {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  width: 100%;
+  
+}
 
 
+.top img {
+  height: 100%;
+  margin-right: 20px;
+ 
+}
