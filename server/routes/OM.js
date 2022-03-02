@@ -1,6 +1,7 @@
 const OMUser = require('../models/OMUser');
 const User = require('../models/user');
 const College = require('../models/college');
+const { mailer } = require('../utils/mailer');
 
 //get Colleges
 const getColleges = async (req, res) => {
@@ -15,36 +16,34 @@ const getColleges = async (req, res) => {
     }
 };
 
-//Add Colleges 
-// const addColleges = async (req, res) => {
-//     try {
-//         let { colleges } = req.body;
-//         colleges.forEach(async (college) => {
-//             try {
-//                 let newCollege = new College({
-//                     name: college.name,
-//                 });
-//                 await newCollege.save();
-//             } catch (err) {
-//                 if (err.name === 'MongoServerError' && err.code === 11000)
-//                     console.log(`${college.name} is already added `);
-//             }
-//         });
-//         return res
-//             .status(200)
-//             .send({ success: true, msg: "College Added For Revels'22" });
-//     } catch (err) {
-//         console.log(err);
-//         return res
-//             .status(500)
-//             .send({ success: false, msg: 'Internal Server Error' });
-//     }
-// };
-
-//add college - ishan
-const addColleges = async (req, res) => {
+// Add Colleges 
+const addMultipleColleges = async (req, res) => {
     try {
-        
+        let { colleges } = req.body;
+        colleges.forEach(async (college) => {
+            try {
+                let newCollege = new College({
+                    name: college.name,
+                });
+                await newCollege.save();
+            } catch (err) {
+                if (err.name === 'MongoServerError' && err.code === 11000)
+                    console.log(`${college.name} is already added `);
+            }
+        });
+        return res
+            .status(200)
+            .send({ success: true, msg: "College Added For Revels'22" });
+    } catch (err) {
+        console.log(err);
+        return res
+            .status(500)
+            .send({ success: false, msg: 'Internal Server Error' });
+    }
+};
+// Add a College
+const addCollege = async (req, res) => {
+    try {
         let college = await College.findOne({name : req.body.name });
         if (college) return res.status(401).json({success: false, msg: "College Already Registered" });
         let  newcollege = new College({
@@ -92,9 +91,8 @@ const getUnverifiedUsers = async (req, res) => {
                 branch: 1,
                 college: 1,
                 state: 1,
-                accommodationRequired: 1,
-                accommodationType: 1,
-                driveLink: 1,
+                accommodation:1,
+                documents:1,
                 isMahe: 1,
                 verified: 1,
             }
@@ -126,8 +124,8 @@ const getRejectedUsers = async (req, res) => {
                 branch: 1,
                 college: 1,
                 state: 1,
-                accommodationRequired: 1,
-                accommodationType: 1,
+                accommodation: 1,
+                documents: 1,
                 driveLink: 1,
                 isMahe: 1,
                 verified: 1,
@@ -177,6 +175,10 @@ const rejectUser = async (req, res) => {
                 .status(500)
                 .send({ success: false, msg: 'User Not Found' });
 
+        // Reject Mail
+        let sendMsg = `Your verification has been rejected, found issues in following documents, please upload them again \n ${message}`;
+        mailer(newUser.email, "Verify Email - REVELS '22", sendMsg);
+
         //TODO: Rejection message to be pushed as notification
         return res.status(200).send({ success: false, msg: 'User Rejected' });
     } catch (err) {
@@ -188,7 +190,8 @@ const rejectUser = async (req, res) => {
 };
 
 module.exports = {
-    addColleges,
+    addCollege,
+    addMultipleColleges,
     blockColleges,
     getUnverifiedUsers,
     getRejectedUsers,

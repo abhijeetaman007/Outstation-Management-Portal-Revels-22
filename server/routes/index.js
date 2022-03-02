@@ -3,7 +3,8 @@ const router = express.Router();
 
 const { registerOM, login, logout,getOMUserFromToken } = require('./auth');
 const {
-    addColleges,
+    addCollege,
+    addMultipleColleges,
     blockColleges,
     verifyUser,
     rejectUser,
@@ -28,7 +29,8 @@ router.get('/om/getomuser',isOMLoggedIn,getOMUserFromToken)
 
 //Get/Add/Block College Routes
 router.get('/om/getcolleges', isOMLoggedIn, getColleges);
-router.post('/om/addcollege', isOMLoggedIn, addColleges);
+router.post('/om/addcollege', isOMLoggedIn, addCollege);
+router.post('/om/addcollege/multiple', isOMLoggedIn, addMultipleColleges);
 router.post('/om/blockcollege', isOMLoggedIn, blockColleges);
 
 //Get All unverified User
