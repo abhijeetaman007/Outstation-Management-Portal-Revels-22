@@ -5,10 +5,10 @@ const isOMLoggedIn = async (req, res,next) => {
     try {
         console.log('OM login');
         const token = req.headers['authorization'];
-        console.log(token);
+        //console.log(token);
         if (typeof token !== 'undefined') {
             let payload = await jwt.verify(token, process.env.JWT_SECRET);
-            console.log('Payload ', payload);
+            //console.log('Payload ', payload);
             if (payload) {
                 let user = await OMUser.findOne({token})
                 if (user && (user._id == payload.user_id)) {

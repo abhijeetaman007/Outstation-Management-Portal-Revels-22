@@ -71,8 +71,9 @@ const UserSchema = new mongoose.Schema(
     },
     accommodation: {
       required: {
-        type: Boolean,
-        default: false,
+        type: Number,
+        default: 0,
+        enum: [0,1,2,3],
       },
       arrivalDate:{
         type:String
@@ -92,9 +93,9 @@ const UserSchema = new mongoose.Schema(
         type:file.FileSchema
       },
     },
-    verified: {
+    status: {
       type: String,
-      enum: ["VERIFIED", "REJECTED", "UNVERIFIED"],
+      enum: ["VERIFIED", "REJECTED", "UNVERIFIED" , "BANNED"],
       default: "UNVERIFIED",
     },
     regEvents: [

@@ -79,9 +79,10 @@ const blockColleges = async (req, res) => {
 
 //get All NonMAHE Users
 const getUnverifiedUsers = async (req, res) => {
+    console.log("here");
     try {
         let users = await User.find(
-            { isMahe: false, verified: 'UNVERIFIED', isEmailVerified: true },
+            { accommodation: {required : 1} , isMahe: false, status: 'UNVERIFIED', isEmailVerified: true    },
             {
                 userID: 1,
                 name: 1,
@@ -94,7 +95,7 @@ const getUnverifiedUsers = async (req, res) => {
                 accommodation:1,
                 documents:1,
                 isMahe: 1,
-                verified: 1,
+                status: 1,
             }
         );
         return res.status(200).send({
@@ -114,7 +115,7 @@ const getUnverifiedUsers = async (req, res) => {
 const getRejectedUsers = async (req, res) => {
     try {
         let users = await User.find(
-            { isMahe: false, verified: 'REJECTED', isEmailVerified: true },
+            { accommodation: {required : 2} , isMahe: false, status: 'REJECTED', isEmailVerified: true },
             {
                 userID: 1,
                 name: 1,
@@ -128,7 +129,7 @@ const getRejectedUsers = async (req, res) => {
                 documents: 1,
                 driveLink: 1,
                 isMahe: 1,
-                verified: 1,
+                status: 1,
             }
         );
         return res.status(200).send({
@@ -148,7 +149,7 @@ const getRejectedUsers = async (req, res) => {
 const verifyUser = async (req, res) => {
     try {
         let { userID } = req.body;
-        let user = await User.updateOne({ userID }, { verified: 'VERIFIED' });
+        let user = await User.updateOne({ userID }, { status: 'VERIFIED' });
         if (!user)
             return res
                 .status(500)
@@ -169,7 +170,7 @@ const verifyUser = async (req, res) => {
 const rejectUser = async (req, res) => {
     try {
         let { userID, message } = req.body;
-        let user = await User.updateOne({ userID }, { verified: 'REJECTED' });
+        let user = await User.updateOne({ userID }, { status: 'REJECTED' });
         if (!user)
             return res
                 .status(500)
