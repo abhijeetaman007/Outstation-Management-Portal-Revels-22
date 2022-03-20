@@ -16,14 +16,16 @@ const getColleges = async (req, res) => {
     }
 };
 
-// Add Colleges 
+// Add Colleges
 const addMultipleColleges = async (req, res) => {
     try {
-        let { colleges } = req.body;
+        let { colleges, isMahe, state } = req.body;
         colleges.forEach(async (college) => {
             try {
                 let newCollege = new College({
                     name: college.name,
+                    isMahe,
+                    state,
                 });
                 await newCollege.save();
             } catch (err) {
@@ -44,11 +46,16 @@ const addMultipleColleges = async (req, res) => {
 // Add a College
 const addCollege = async (req, res) => {
     try {
-        let college = await College.findOne({name : req.body.name });
-        if (college) return res.status(401).json({success: false, msg: "College Already Registered" });
-        let  newcollege = new College({
-            name: req.body.name,
-             isMahe : req.body.isMahe
+        let { name, isMahe, state } = req.body;
+        let college = await College.findOne({ name });
+        if (college)
+            return res
+                .status(401)
+                .json({ success: false, msg: 'College Already Registered' });
+        let newcollege = new College({
+            name,
+            isMahe,
+            state,
         });
         await newcollege.save();
         return res
@@ -62,11 +69,10 @@ const addCollege = async (req, res) => {
     }
 };
 
-
 //Block Colleges
 const blockColleges = async (req, res) => {
     try {
-        await College.deleteOne({ name: req.body.name});
+        await College.deleteOne({ name: req.body.name });
         return res.status(200).send({ success: true, msg: 'College Blocked' });
     } catch (err) {
         console.log(err);
@@ -76,24 +82,27 @@ const blockColleges = async (req, res) => {
     }
 };
 
-
 //get All NonMAHE Users
 const getUnverifiedUsers = async (req, res) => {
-    console.log("here");
+    console.log('here');
     try {
         let users = await User.find(
-            { accommodation: {required : 1} , isMahe: false, status: 'UNVERIFIED', isEmailVerified: true    },
+            {
+                isMahe: 0,
+                status: 'UNVERIFIED',
+                isEmailVerified: true,
+            },
             {
                 userID: 1,
                 name: 1,
                 email: 1,
                 mobileNumber: 1,
                 registrationNumber: 1,
-                branch: 1,
+                course: 1,
                 college: 1,
                 state: 1,
-                accommodation:1,
-                documents:1,
+                accommodation: 1,
+                documents: 1,
                 isMahe: 1,
                 status: 1,
             }
@@ -101,7 +110,7 @@ const getUnverifiedUsers = async (req, res) => {
         return res.status(200).send({
             success: true,
             data: users,
-            msg: 'All unverified Non MAHE Users ',
+            msg: 'All unverified Non-MAHE Users ',
         });
     } catch (err) {
         console.log(err);
@@ -115,19 +124,22 @@ const getUnverifiedUsers = async (req, res) => {
 const getRejectedUsers = async (req, res) => {
     try {
         let users = await User.find(
-            { accommodation: {required : 2} , isMahe: false, status: 'REJECTED', isEmailVerified: true },
+            {
+                isMahe: 0,
+                status: 'REJECTED',
+                isEmailVerified: true,
+            },
             {
                 userID: 1,
                 name: 1,
                 email: 1,
                 mobileNumber: 1,
                 registrationNumber: 1,
-                branch: 1,
+                course: 1,
                 college: 1,
                 state: 1,
                 accommodation: 1,
                 documents: 1,
-                driveLink: 1,
                 isMahe: 1,
                 status: 1,
             }
@@ -177,8 +189,8 @@ const rejectUser = async (req, res) => {
                 .send({ success: false, msg: 'User Not Found' });
 
         // Reject Mail
-        let sendMsg = `Your verification has been rejected, found issues in following documents, please upload them again \n ${message}`;
-        mailer(user.email, "Verify Email - REVELS '22", sendMsg);
+        // let sendMsg = `Your verification has been rejected, found issues in following documents, please upload them again \n ${message}`;
+        // mailer(user.email, "Verify Email - REVELS '22", sendMsg);
 
         //TODO: Rejection message to be pushed as notification
         return res.status(200).send({ success: true, msg: 'User Rejected' });

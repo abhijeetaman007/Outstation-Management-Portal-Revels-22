@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { registerOM, login, logout,getOMUserFromToken } = require('./auth');
+const {adminLogin,adminLogout,getAdminFromToken} = require('./auth');
 const {
     addCollege,
     addMultipleColleges,
@@ -12,7 +12,7 @@ const {
     getUnverifiedUsers,
     getRejectedUsers,
 } = require('./OM');
-const { isOMLoggedIn } = require('../middlewares/auth');
+const { isOM,isCategory,isAdminLoggedIn } = require('../middlewares/auth');
 
 // TEST ROUTE
 router.get('/test', (req, res) => {
@@ -21,26 +21,26 @@ router.get('/test', (req, res) => {
 
 // Routes:
 // Auth Routes
-router.post('/om/register', registerOM);
-router.post('/om/login', login);
-router.post('/om/logout', logout);
-router.get('/om/getomuser',isOMLoggedIn,getOMUserFromToken)
+// router.post('/om/register', registerOM);
+router.post('/om/login', adminLogin);
+router.post('/om/logout', adminLogout);
+router.get('/om/getomuser',getAdminFromToken)
 
 
 //Get/Add/Block College Routes
-router.get('/om/getcolleges', isOMLoggedIn, getColleges);
-router.post('/om/addcollege', isOMLoggedIn, addCollege);
-router.post('/om/addcollege/multiple', isOMLoggedIn, addMultipleColleges);
-router.post('/om/blockcollege', isOMLoggedIn, blockColleges);
+router.get('/om/getcolleges', getColleges);
+router.post('/om/addcollege', addCollege);
+router.post('/om/addcollege/multiple', addMultipleColleges);
+router.post('/om/blockcollege', blockColleges);
 
 //Get All unverified User
-router.get('/om/getunverifiedusers', isOMLoggedIn, getUnverifiedUsers);
+router.get('/om/getunverifiedusers', getUnverifiedUsers);
 //Get All rejected User
-router.get('/om/getrejectedusers',isOMLoggedIn,getRejectedUsers);
+router.get('/om/getrejectedusers',getRejectedUsers);
 
 //Verify/Reject User
-router.post('/om/verify', isOMLoggedIn, verifyUser);
-router.post('/om/reject', isOMLoggedIn, rejectUser);
+router.post('/om/verify', verifyUser);
+router.post('/om/reject', rejectUser);
 
 
 module.exports = router;
