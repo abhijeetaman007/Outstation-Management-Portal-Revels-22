@@ -11,6 +11,7 @@ const {
     getColleges,
     getUnverifiedUsers,
     getRejectedUsers,
+    getVerifiedUsers,
 } = require('./OM');
 const { isOM,isCategory,isAdminLoggedIn } = require('../middlewares/auth');
 
@@ -28,7 +29,7 @@ router.get('/om/getomuser',getAdminFromToken)
 
 
 //Get/Add/Block College Routes
-router.get('/om/getcolleges', getColleges);
+router.get('/om/getcolleges',isAdminLoggedIn, getColleges);
 router.post('/om/addcollege', addCollege);
 router.post('/om/addcollege/multiple', addMultipleColleges);
 router.post('/om/blockcollege', blockColleges);
@@ -37,6 +38,8 @@ router.post('/om/blockcollege', blockColleges);
 router.get('/om/getunverifiedusers', getUnverifiedUsers);
 //Get All rejected User
 router.get('/om/getrejectedusers',getRejectedUsers);
+//Get All veified User
+router.get('/om/getverifiedusers',getVerifiedUsers);
 
 //Verify/Reject User
 router.post('/om/verify', verifyUser);

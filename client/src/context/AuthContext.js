@@ -23,6 +23,7 @@ export default function AuthProvider({ children }) {
             authorization: `${token}`,
           },
         });
+        //console.log(res);
         if (res.data.success) {
           setuser(res.data.data);
           setLoading(false);
@@ -50,14 +51,14 @@ export default function AuthProvider({ children }) {
         email,
         password,
       });
-      console.log(res.data);
+      //console.log(res.data);
       if (!res.data.success) return res.data;
-
-      localStorage.setItem("tokenid=", res.data.data.token);
+      
+      localStorage.setItem("tokenid=", res.data.data);
       restoreUser();
       return res.data;
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
       throw err;
     }
   };

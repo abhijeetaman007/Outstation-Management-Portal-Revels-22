@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const RoleSchema = new mongoose.Schema(
+const roleSchema = new mongoose.Schema(
   {
     //0 - Misc/Individual Admin ; 1 - Category Admins
     type: {
@@ -28,4 +28,4 @@ const RoleSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("Role", RoleSchema);
+module.exports =Role = mongoose.model("Role", roleSchema);

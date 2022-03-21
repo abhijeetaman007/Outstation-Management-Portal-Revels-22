@@ -1,3 +1,16 @@
+.fa-check {
+  color: green;
+}
+.fa-times{
+  color: red;
+}
+.fa-check:hover{
+  cursor: pointer;
+}
+.fa-times:hover{
+  cursor: pointer;
+}
+
 .user-dash{
     color: white;
     height: 100%;
@@ -278,10 +291,10 @@ display: flex;
 justify-content: center;
 width: 100%;
 overflow: auto;
-height: 200px;
 margin-bottom: 20px;
 }
-.doc-img img {
+.doc-img div img {
+  height: 200px;
   margin: 0 10px;
 }
 

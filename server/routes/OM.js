@@ -157,6 +157,44 @@ const getRejectedUsers = async (req, res) => {
     }
 };
 
+// Get Rejected Users
+const getVerifiedUsers = async (req, res) => {
+    try {
+        let users = await User.find(
+            {
+                isMahe: 0,
+                status: 'VERIFIED',
+                isEmailVerified: true,
+            },
+            {
+                userID: 1,
+                name: 1,
+                email: 1,
+                mobileNumber: 1,
+                registrationNumber: 1,
+                course: 1,
+                college: 1,
+                state: 1,
+                accommodation: 1,
+                documents: 1,
+                isMahe: 1,
+                status: 1,
+            }
+        );
+        return res.status(200).send({
+            success: true,
+            data: users,
+            msg: 'All verified Non MAHE Users ',
+        });
+    } catch (err) {
+        console.log(err);
+        return res
+            .status(500)
+            .send({ success: false, msg: 'Internal Sercer Error' });
+    }
+};
+
+
 //verify User
 const verifyUser = async (req, res) => {
     try {
@@ -208,6 +246,7 @@ module.exports = {
     blockColleges,
     getUnverifiedUsers,
     getRejectedUsers,
+    getVerifiedUsers,
     verifyUser,
     rejectUser,
     getColleges,

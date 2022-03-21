@@ -50,6 +50,7 @@
 // module.exports = { isOMLoggedIn };
 const Admin = require("../models/Admin");
 var jwt = require("jsonwebtoken");
+const Role = require("../models/Role");
 
 const isAdminLoggedIn = async (req, res, next) => {
     try {
@@ -61,9 +62,10 @@ const isAdminLoggedIn = async (req, res, next) => {
         console.log("Payload ", payload);
         if (payload) {
           console.log("id:", payload.admin_Id);
-          let admin = await Admin.findById(payload.admin_Id).populate(
-            "role role.categoryId"
-          );
+          let admin = await Admin.findById(payload.admin_Id);
+          
+          const role = await Role.findById(admin.role);
+          admin.role = role;
           console.log("here ", admin);
           if (admin) {
             req.requestAdmin = admin;

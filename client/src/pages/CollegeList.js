@@ -17,9 +17,9 @@ function CollegeList() {
         },
       });
       setcollges(res.data.data);
-      console.log(res.data);
+      //console.log(res.data);
     } catch (error) {
-      console.log(error.response);
+      //console.log(error.response);
     }
   };
   const addCollege = async (e) => {
@@ -41,7 +41,7 @@ function CollegeList() {
           },
         }
       );
-      console.log(res.data);
+      //console.log(res.data);
       if (res.data.success) {
         toast.success(res.data.msg, { id: toastId });
         //console.log(res.data.category);
@@ -72,7 +72,7 @@ function CollegeList() {
           },
         }
       );
-      console.log(res.data);
+      //console.log(res.data);
       if (res.data.success) {
         toast.success(res.data.msg, { id: toastId });
         getCollegeList();

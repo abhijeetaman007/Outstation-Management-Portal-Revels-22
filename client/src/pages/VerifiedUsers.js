@@ -2,40 +2,41 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 
-function RejectedUsers({ role }) {
-  const [rejectedList, setrejectedList] = useState([]);
+function VerifiedUsers({ role }) {
+  const [verifiedList, setVerifiedList] = useState([]);
 
-  const getRejectedUsers = async () => {
+  const getVerifiedUsers = async () => {
     try {
-      const res = await axios.get("/om/getrejectedusers", {
+      const res = await axios.get("/om/getverifiedusers", {
         headers: {
           authorization: `${localStorage.getItem("tokenid=")}`,
         },
       });
-      setrejectedList(res.data.data);
+      setVerifiedList(res.data.data);
       //console.log(res.data);
     } catch (error) {
-      //console.log(error.response.data);
+      //console.log(error);
     }
   };
   useEffect(() => {
     //console.log(role);
-    getRejectedUsers();
+    getVerifiedUsers();
   }, []);
   return (
     <div>
-      Total Count : {rejectedList.length}
-      {rejectedList.map((user, ind) => {
-        return <RejectedList user={user} key={ind} />;
+      Total Count : {verifiedList.length}
+      {verifiedList.map((user, ind) => {
+        return <VerifiedList user={user} key={ind} />;
       })}
     </div>
   );
 }
 
-function RejectedList({ user }) {
+function VerifiedList({ user }) {
   const [expanded, setexpanded] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalImg, setModalImg] = useState("");
+
   return (
     <>
       <div className="unverified">
@@ -82,7 +83,6 @@ function RejectedList({ user }) {
           </div>
           <div className="doc-img">
             {Object.keys(user.documents).map((doc, ind) => {
-              
               return (
                 <>
                   <div>
@@ -94,7 +94,6 @@ function RejectedList({ user }) {
                         setModalImg(user.documents[doc].url);
                       }}
                     />
-                    
 
                     <Modal
                       isOpen={modalIsOpen}
@@ -114,4 +113,4 @@ function RejectedList({ user }) {
   );
 }
 
-export default RejectedUsers;
+export default VerifiedUsers;

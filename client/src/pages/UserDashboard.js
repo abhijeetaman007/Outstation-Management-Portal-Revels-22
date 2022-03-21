@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/userdash.css";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
@@ -6,7 +6,8 @@ import CollegeList from "./CollegeList";
 import UnverifiedUsers from "./UnverifiedUsers";
 import RejectedUsers from "./RejectedUsers";
 import logo from "../assets/revels-logo.png";
-import axios from 'axios';
+import axios from "axios";
+import VerifiedUsers from "./VerifiedUsers";
 function UserDashboard() {
   const auth = useAuth();
   const [tab, settab] = useState(0);
@@ -19,9 +20,9 @@ function UserDashboard() {
         },
       });
       setuser(res.data.data);
-      console.log(res.data);
+      //console.log(res.data);
     } catch (error) {
-      console.log(error.response);
+      //console.log(error.response);
     }
   };
 
@@ -29,20 +30,16 @@ function UserDashboard() {
     getOMUser();
   }, []);
 
-    if(!user){
-      return(
-        <div>Loading...
-  
-</div>
-      )
-    }
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="user-dash">
       <div className="top">
         <img src={logo} />
         <h1>OUTSTATION MANAGEMENT</h1>
       </div>
-      
+
       <p>
         welcome, <span>{user.name}</span>{" "}
         <button onClick={auth.logout}>
@@ -69,14 +66,22 @@ function UserDashboard() {
         >
           <i class="fa fa-ban"></i>Rejected Users
         </div>
+        <div
+          className={tab === 3 ? "tab" : "tab inactive"}
+          onClick={() => settab(3)}
+        >
+          Verified
+        </div>
       </div>
       <div className="tab-content">
         {tab === 0 ? (
           <CollegeList />
         ) : tab === 1 ? (
           <UnverifiedUsers />
+        ) : tab === 2 ? (
+          <RejectedUsers role={tab}/>
         ) : (
-          <RejectedUsers />
+          <VerifiedUsers role={tab}/>
         )}
       </div>
     </div>
