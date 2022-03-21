@@ -1,4 +1,3 @@
-// const OMUser = require('../models/OMUser');
 const Admin = require('../models/Admin');
 var jwt = require('jsonwebtoken');
 const { mailer } = require('../utils/mailer');

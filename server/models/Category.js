@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const CategorySchema = new mongoose.Schema(
   {
@@ -17,10 +17,10 @@ const CategorySchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['CULTURAL', 'SPORTS', 'SUPPORTING', 'MISC'],
+      enum: ["CULTURAL", "SPORTS", "SUPPORTING", "MISC"],
     },
   },
   { timestamps: true }
 );
 
-module.exports = Category = mongoose.model('category', CategorySchema);
+module.exports = Category = mongoose.model("Category", CategorySchema);

@@ -1,4 +1,3 @@
-const OMUser = require('../models/OMUser');
 const User = require('../models/user');
 const College = require('../models/college');
 const { mailer } = require('../utils/mailer');
