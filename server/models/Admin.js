@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const adminSchema = new mongoose.Schema(
   {
     name: {
@@ -10,7 +10,7 @@ const adminSchema = new mongoose.Schema(
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Role",
+      ref: 'Category',
     },
     email: {
       type: String,
@@ -22,13 +22,13 @@ const adminSchema = new mongoose.Schema(
     },
     token: {
       type: String,
-      default:null
+      default: null,
     },
     passwordResetToken: {
       type: String,
-      default:null
+      default: null,
     },
   },
   { timestamps: true }
 );
-module.exports = Admin = mongoose.model("Admin", adminSchema);
+module.exports = Admin = mongoose.model('Admin', adminSchema);
