@@ -36,6 +36,8 @@ function VerifiedList({ user }) {
   const [expanded, setexpanded] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalImg, setModalImg] = useState("");
+  const [docName, setdoc] = useState("");
+
 
   return (
     <>
@@ -95,11 +97,20 @@ function VerifiedList({ user }) {
                       }}
                     />
 
-                    <Modal
+<Modal
                       isOpen={modalIsOpen}
                       onRequestClose={() => setIsOpen(!modalIsOpen)}
                       contentLabel="Docs"
+                      style={{
+                        overlay: {
+                          position: 'fixed',
+                          
+                          backgroundColor: 'rgba(0, 0, 0)'
+                        },
+                        
+                      }}
                     >
+                      <p>{docName}</p>
                       <img src={modalImg} />
                     </Modal>
                   </div>

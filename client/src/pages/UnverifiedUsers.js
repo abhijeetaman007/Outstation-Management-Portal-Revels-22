@@ -58,6 +58,7 @@ function UnverifiedList({ user }) {
   const [expanded, setexpanded] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalImg, setModalImg] = useState("");
+  const [docName, setdoc] = useState("");
   // useEffect(() => {
   //   Object.keys(user.documents).map(key => {
   //     console.log(key) // returns the keys in an object
@@ -203,6 +204,7 @@ function UnverifiedList({ user }) {
                       onClick={() => {
                         setIsOpen(!modalIsOpen);
                         setModalImg(user.documents[doc].url);
+                        setdoc(doc);
                       }}
                     />
                     <div>
@@ -230,7 +232,16 @@ function UnverifiedList({ user }) {
                       isOpen={modalIsOpen}
                       onRequestClose={() => setIsOpen(!modalIsOpen)}
                       contentLabel="Docs"
+                      style={{
+                        overlay: {
+                          position: 'fixed',
+                          
+                          backgroundColor: 'rgba(0, 0, 0)'
+                        },
+                        
+                      }}
                     >
+                      <p>{docName}</p>
                       <img src={modalImg} />
                     </Modal>
                   </div>

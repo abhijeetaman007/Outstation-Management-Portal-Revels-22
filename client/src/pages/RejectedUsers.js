@@ -36,6 +36,8 @@ function RejectedList({ user }) {
   const [expanded, setexpanded] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalImg, setModalImg] = useState("");
+  const [docName, setdoc] = useState("");
+
   return (
     <>
       <div className="unverified">
@@ -82,7 +84,6 @@ function RejectedList({ user }) {
           </div>
           <div className="doc-img">
             {Object.keys(user.documents).map((doc, ind) => {
-              
               return (
                 <>
                   <div>
@@ -94,13 +95,21 @@ function RejectedList({ user }) {
                         setModalImg(user.documents[doc].url);
                       }}
                     />
-                    
 
-                    <Modal
+<Modal
                       isOpen={modalIsOpen}
                       onRequestClose={() => setIsOpen(!modalIsOpen)}
                       contentLabel="Docs"
+                      style={{
+                        overlay: {
+                          position: 'fixed',
+                          
+                          backgroundColor: 'rgba(0, 0, 0)'
+                        },
+                        
+                      }}
                     >
+                      <p>{docName}</p>
                       <img src={modalImg} />
                     </Modal>
                   </div>
