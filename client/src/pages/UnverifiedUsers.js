@@ -134,7 +134,7 @@ function UnverifiedList({ user }) {
       //console.log(res.data);
       if (res.data.success) {
         toast.success(res.data.msg, { id: toastId });
-        //window.location.reload();
+        window.location.reload();
         //console.log(res.data.category);
         //navigate(`/admin/sdd`);
       } else {
