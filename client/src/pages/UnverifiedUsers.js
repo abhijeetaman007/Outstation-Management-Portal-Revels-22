@@ -31,12 +31,12 @@ function UnverifiedUsers() {
       <div className="search-box">
         <input
           type="text"
-          class="login-input start-label"
+          className="login-input start-label"
           placeholder="Search User"
           value={searchUser}
           onChange={(e) => setsearchUser(e.target.value)}
         />
-        <i class="fa fa-search "></i>
+        <i className="fa fa-search "></i>
       </div>
       {unverifiedList
         .filter((user) => {
@@ -48,7 +48,7 @@ function UnverifiedUsers() {
           );
         })
         .map((user, ind) => {
-          return <UnverifiedList user={user} />;
+          return <UnverifiedList user={user} key={ind}/>;
         })}
     </div>
   );
@@ -134,7 +134,7 @@ function UnverifiedList({ user }) {
       //console.log(res.data);
       if (res.data.success) {
         toast.success(res.data.msg, { id: toastId });
-        //window.location.reload();
+        window.location.reload();
         //console.log(res.data.category);
         //navigate(`/admin/sdd`);
       } else {
@@ -197,7 +197,7 @@ function UnverifiedList({ user }) {
               
               return (
                 <>
-                  <div>
+                  <div >
                     <p>{doc}</p>
                     <img
                       src={user.documents[doc].url}
@@ -240,6 +240,7 @@ function UnverifiedList({ user }) {
                         },
                         
                       }}
+                      ariaHideApp={false}
                     >
                       <p>{docName}</p>
                       <img src={modalImg} />

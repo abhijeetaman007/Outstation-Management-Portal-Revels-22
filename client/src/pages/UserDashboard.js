@@ -43,7 +43,7 @@ function UserDashboard() {
       <p>
         welcome, <span>{user.name}</span>{" "}
         <button onClick={auth.logout}>
-          Log Out <i class="fa fa-power-off"></i>
+          Log Out <i className="fa fa-power-off"></i>
         </button>
       </p>
       <div className="tabs-section">
@@ -58,13 +58,13 @@ function UserDashboard() {
           className={tab === 1 ? "tab" : "tab inactive"}
           onClick={() => settab(1)}
         >
-          <i class="fa fa-info"></i>Unverified Users
+          <i className="fa fa-info"></i>Unverified Users
         </div>
         <div
           className={tab === 2 ? "tab" : "tab inactive"}
           onClick={() => settab(2)}
         >
-          <i class="fa fa-ban"></i>Rejected Users
+          <i className="fa fa-ban"></i>Rejected Users
         </div>
         <div
           className={tab === 3 ? "tab" : "tab inactive"}

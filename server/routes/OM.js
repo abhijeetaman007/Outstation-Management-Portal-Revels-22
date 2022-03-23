@@ -122,42 +122,43 @@ const getUnverifiedUsers = async (req, res) => {
 
 // Get Rejected Users
 const getRejectedUsers = async (req, res) => {
-    try {
-        let users = await User.find(
-            {
-                isMahe: 0,
-                status: 'REJECTED',
-                isEmailVerified: true,
-            },
-            {
-                userID: 1,
-                name: 1,
-                email: 1,
-                mobileNumber: 1,
-                registrationNumber: 1,
-                course: 1,
-                college: 1,
-                state: 1,
-                accommodation: 1,
-                documents: 1,
-                isMahe: 1,
-                status: 1,
-            }
-        );
-        return res.status(200).send({
-            success: true,
-            data: users,
-            msg: 'All unverified Non MAHE Users ',
-        });
-    } catch (err) {
-        console.log(err);
-        return res
-            .status(500)
-            .send({ success: false, msg: 'Internal Sercer Error' });
-    }
+  console.log("here")
+  try {
+    let users = await User.find(
+      {
+        isMahe: 0,
+        status: 'REJECTED',
+        isEmailVerified: true,
+      },
+      {
+        userID: 1,
+        name: 1,
+        email: 1,
+        mobileNumber: 1,
+        registrationNumber: 1,
+        course: 1,
+        college: 1,
+        state: 1,
+        accommodation: 1,
+        documents: 1,
+        isMahe: 1,
+        status: 1,
+      }
+    );
+    return res.status(200).send({
+      success: true,
+      data: users,
+      msg: 'All unverified Non MAHE Users ',
+    });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .send({ success: false, msg: 'Internal Server Error' });
+  }
 };
 
-// Get Rejected Users
+// Get Verified Users
 const getVerifiedUsers = async (req, res) => {
     try {
         let users = await User.find(
@@ -280,13 +281,14 @@ const changeFileStatus = async (req, res) => {
 };
 
 module.exports = {
-    addCollege,
-    addMultipleColleges,
-    blockColleges,
-    getUnverifiedUsers,
-    getRejectedUsers,
-    verifyUser,
-    rejectUser,
-    getColleges,
-    changeFileStatus,
+  addCollege,
+  addMultipleColleges,
+  blockColleges,
+  getUnverifiedUsers,
+  getRejectedUsers,
+  getVerifiedUsers,
+  verifyUser,
+  rejectUser,
+  getColleges,
+  changeFileStatus,
 };

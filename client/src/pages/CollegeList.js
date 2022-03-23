@@ -7,6 +7,7 @@ function CollegeList() {
   const [collges, setcollges] = useState([]);
   const [collegeName, setcollegeName] = useState("");
   const [searchCollege, setsearchCollege] = useState("");
+  const [collegeState, setcollegeState] = useState("");
   const [expanded, setexpanded] = useState(false);
   const [isMahe, setisMahe] = useState(false);
   const getCollegeList = async () => {
@@ -27,6 +28,12 @@ function CollegeList() {
     const toastId = toast.loading("Loading...");
     if (collegeName === "") {
       toast.error("Please enter college name", {
+        id: toastId,
+      });
+      return;
+    }
+    if (collegeState === "") {
+      toast.error("Please enter college state", {
         id: toastId,
       });
       return;
@@ -109,6 +116,13 @@ function CollegeList() {
               value={collegeName}
               onChange={(e) => setcollegeName(e.target.value)}
             />
+            <input
+              type="text"
+              className="login-input start-label"
+              placeholder="State"
+              value={collegeState}
+              onChange={(e) => setcollegeState(e.target.value)}
+            />
             <label>
               Under MAHE?
               <input
@@ -125,12 +139,12 @@ function CollegeList() {
       <div className="search-box">
         <input
           type="text"
-          class="login-input start-label"
+          className="login-input start-label"
           placeholder="Search"
           value={searchCollege}
           onChange={(e) => setsearchCollege(e.target.value)}
         />
-        <i class="fa fa-search "></i>
+        <i className="fa fa-search "></i>
       </div>
       {collges
         .filter((clg) => {
@@ -139,7 +153,7 @@ function CollegeList() {
         })
         .map((clg, ind) => {
           return (
-            <div className="college">
+            <div className="college" key={ind}>
               <h2 className={clg.isMahe ? "isMahe" : ""}>{clg.name}</h2>
               <i className="fa" onClick={(e) => blockCollege(e, `${clg.name}`)}>
                 block
