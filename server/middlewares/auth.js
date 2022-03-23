@@ -65,9 +65,10 @@ const isAdminLoggedIn = async (req, res, next) => {
                 // let admin = await Admin.findById(payload.admin_Id).populate({path:'role',populate:{
                 //   path:'categoryId'
                 // })
-                let admin = await Admin.findById(payload.admin_Id).populate(
-                    'role'
-                );
+                let admin = await Admin.findOne({_id:payload.admin_Id,token}).populate("role");
+                // let admin = await Admin.findById(payload.admin_Id).populate(
+                //     'role'
+                // );
                 console.log('here ', admin);
                 if (admin) {
                     req.requestAdmin = admin;
@@ -108,7 +109,7 @@ const isAdminLoggedIn = async (req, res, next) => {
 const isCategory = async (req, res, next) => {
     try {
         let admin = req.requestAdmin;
-        if (admin.role.type != 0) {
+        if (admin.role.type != 1) {
             return res
                 .status(400)
                 .send({ msg: 'Not a category', success: false });
