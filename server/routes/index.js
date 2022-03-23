@@ -11,6 +11,7 @@ const {
   getColleges,
   getUnverifiedUsers,
   getRejectedUsers,
+  getVerifiedUsers,
   changeFileStatus,
 } = require('./OM');
 const { isOM, isCategory, isAdminLoggedIn } = require('../middlewares/auth');
@@ -37,7 +38,8 @@ router.post('/om/blockcollege',isAdminLoggedIn,isOM, blockColleges);
 router.get('/om/getunverifiedusers',isAdminLoggedIn,isOM, getUnverifiedUsers);
 //Get All rejected User
 router.get('/om/getrejectedusers',isAdminLoggedIn,isOM, getRejectedUsers);
-
+//Get All rejected User
+router.get('/om/getverifiedusers',isAdminLoggedIn,isOM, getVerifiedUsers);
 //Verify/Reject User
 router.post('/om/verify', isAdminLoggedIn,isOM,verifyUser);
 router.post('/om/reject',isAdminLoggedIn,isOM, rejectUser);

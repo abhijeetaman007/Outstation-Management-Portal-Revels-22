@@ -121,6 +121,7 @@ const getUnverifiedUsers = async (req, res) => {
 
 // Get Rejected Users
 const getRejectedUsers = async (req, res) => {
+  console.log("here")
   try {
     let users = await User.find(
       {
@@ -152,11 +153,11 @@ const getRejectedUsers = async (req, res) => {
     console.log(err);
     return res
       .status(500)
-      .send({ success: false, msg: 'Internal Sercer Error' });
+      .send({ success: false, msg: 'Internal Server Error' });
   }
 };
 
-// Get Rejected Users
+// Get Verified Users
 const getVerifiedUsers = async (req, res) => {
     try {
         let users = await User.find(
@@ -279,6 +280,7 @@ module.exports = {
   blockColleges,
   getUnverifiedUsers,
   getRejectedUsers,
+  getVerifiedUsers,
   verifyUser,
   rejectUser,
   getColleges,

@@ -125,12 +125,12 @@ function CollegeList() {
       <div className="search-box">
         <input
           type="text"
-          class="login-input start-label"
+          className="login-input start-label"
           placeholder="Search"
           value={searchCollege}
           onChange={(e) => setsearchCollege(e.target.value)}
         />
-        <i class="fa fa-search "></i>
+        <i className="fa fa-search "></i>
       </div>
       {collges
         .filter((clg) => {
@@ -139,7 +139,7 @@ function CollegeList() {
         })
         .map((clg, ind) => {
           return (
-            <div className="college">
+            <div className="college" key={ind}>
               <h2 className={clg.isMahe ? "isMahe" : ""}>{clg.name}</h2>
               <i className="fa" onClick={(e) => blockCollege(e, `${clg.name}`)}>
                 block

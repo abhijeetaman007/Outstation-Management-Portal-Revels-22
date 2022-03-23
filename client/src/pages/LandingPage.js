@@ -43,24 +43,24 @@ function LandingPage() {
           <img src={logo} />
           <h1>REVELS '22</h1>
         </div>
-        <div class="verticalLine"></div>
+        <div className="verticalLine"></div>
         <div className="auth-box">
           <form>
             <h2>Welcome Back!</h2>
-            <div class="login-field">
-              <i class="login-icon fa fa-user"></i>
+            <div className="login-field">
+              <i className="login-icon fa fa-user"></i>
               <input
                 type="text"
-                class="login-input"
+                className="login-input"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setemail(e.target.value)}
               />
-              <div class="login-field">
-                <i class="login-icon fa fa-lock"></i>
+              <div className="login-field">
+                <i className="login-icon fa fa-lock"></i>
                 <input
                   type="password"
-                  class="login-input"
+                  className="login-input"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}
@@ -71,39 +71,8 @@ function LandingPage() {
           </form>
         </div>
       </div>
-      {/* <div className="left">
-        <div className="logo">
-          <img src={logo} />
-        </div>
-      </div> */}
-      {/* <div className="right">
-        <div className="form-box">
-          <form>
-            <h2>Welcome Back...</h2>
-            <div class="login-field">
-              <i class="login-icon fa fa-user"></i>
-              <input
-                type="text"
-                class="login-input"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setemail(e.target.value)}
-              />
-              <div class="login-field">
-                <i class="login-icon fa fa-lock"></i>
-                <input
-                  type="password"
-                  class="login-input"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setpassword(e.target.value)}
-                />
-              </div>
-            </div>
-            <button>Log In</button>
-          </form>
-        </div>
-      </div> */}
+      
+      
       <div className="bottom-center">
         <img src={mitlogo} />
         <div className="icons">

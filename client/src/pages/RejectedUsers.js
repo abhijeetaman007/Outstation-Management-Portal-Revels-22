@@ -96,18 +96,18 @@ function RejectedList({ user }) {
                       }}
                     />
 
-<Modal
+                    <Modal
                       isOpen={modalIsOpen}
                       onRequestClose={() => setIsOpen(!modalIsOpen)}
                       contentLabel="Docs"
                       style={{
                         overlay: {
-                          position: 'fixed',
-                          
-                          backgroundColor: 'rgba(0, 0, 0)'
+                          position: "fixed",
+
+                          backgroundColor: "rgba(0, 0, 0)",
                         },
-                        
                       }}
+                      ariaHideApp={false}
                     >
                       <p>{docName}</p>
                       <img src={modalImg} />

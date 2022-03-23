@@ -7,6 +7,7 @@ function VerifiedUsers({ role }) {
 
   const getVerifiedUsers = async () => {
     try {
+      console.log("get vedgh")
       const res = await axios.get("/om/getverifiedusers", {
         headers: {
           authorization: `${localStorage.getItem("tokenid=")}`,
@@ -15,7 +16,7 @@ function VerifiedUsers({ role }) {
       setVerifiedList(res.data.data);
       //console.log(res.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -37,7 +38,6 @@ function VerifiedList({ user }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalImg, setModalImg] = useState("");
   const [docName, setdoc] = useState("");
-
 
   return (
     <>
@@ -84,7 +84,9 @@ function VerifiedList({ user }) {
             </div>
           </div>
           <div className="doc-img">
-            {Object.keys(user.documents).map((doc, ind) => {
+            {user.documets != undefined && <>
+            
+              {Object.keys(user.documents).map((doc, ind) => {
               return (
                 <>
                   <div>
@@ -97,18 +99,18 @@ function VerifiedList({ user }) {
                       }}
                     />
 
-<Modal
+                    <Modal
                       isOpen={modalIsOpen}
                       onRequestClose={() => setIsOpen(!modalIsOpen)}
                       contentLabel="Docs"
                       style={{
                         overlay: {
-                          position: 'fixed',
-                          
-                          backgroundColor: 'rgba(0, 0, 0)'
+                          position: "fixed",
+
+                          backgroundColor: "rgba(0, 0, 0)",
                         },
-                        
                       }}
+                      ariaHideApp={false}
                     >
                       <p>{docName}</p>
                       <img src={modalImg} />
@@ -117,6 +119,7 @@ function VerifiedList({ user }) {
                 </>
               );
             })}
+            </>}
           </div>
         </div>
       </div>
