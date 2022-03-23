@@ -7,6 +7,7 @@ function CollegeList() {
   const [collges, setcollges] = useState([]);
   const [collegeName, setcollegeName] = useState("");
   const [searchCollege, setsearchCollege] = useState("");
+  const [collegeState, setcollegeState] = useState("");
   const [expanded, setexpanded] = useState(false);
   const [isMahe, setisMahe] = useState(false);
   const getCollegeList = async () => {
@@ -27,6 +28,12 @@ function CollegeList() {
     const toastId = toast.loading("Loading...");
     if (collegeName === "") {
       toast.error("Please enter college name", {
+        id: toastId,
+      });
+      return;
+    }
+    if (collegeState === "") {
+      toast.error("Please enter college state", {
         id: toastId,
       });
       return;
@@ -108,6 +115,13 @@ function CollegeList() {
               placeholder="Enter College Name"
               value={collegeName}
               onChange={(e) => setcollegeName(e.target.value)}
+            />
+            <input
+              type="text"
+              className="login-input start-label"
+              placeholder="State"
+              value={collegeState}
+              onChange={(e) => setcollegeState(e.target.value)}
             />
             <label>
               Under MAHE?
