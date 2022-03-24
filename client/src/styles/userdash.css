@@ -10,7 +10,14 @@
 .fa-times:hover{
   cursor: pointer;
 }
-
+.downloadbtn{
+  width: 100%;
+  color: white;
+  background-color: #743ad5;
+  text-decoration: none;
+  padding: 10px;
+  
+}
 .user-dash{
     color: white;
     height: 100%;
