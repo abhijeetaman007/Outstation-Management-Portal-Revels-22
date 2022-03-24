@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import Modal from "react-modal";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+
 function UnverifiedUsers() {
   const [unverifiedList, setunverifiedList] = useState([]);
   const [searchUser, setsearchUser] = useState("");
@@ -48,7 +49,7 @@ function UnverifiedUsers() {
           );
         })
         .map((user, ind) => {
-          return <UnverifiedList user={user} key={ind}/>;
+          return <UnverifiedList user={user} key={ind} />;
         })}
     </div>
   );
@@ -147,6 +148,13 @@ function UnverifiedList({ user }) {
     }
   };
 
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+
   return (
     <>
       {" "}
@@ -194,19 +202,35 @@ function UnverifiedList({ user }) {
           </div>
           <div className="doc-img">
             {Object.keys(user.documents).map((doc, ind) => {
-              
               return (
                 <>
-                  <div >
+                  <div>
                     <p>{doc}</p>
-                    <img
-                      src={user.documents[doc].url}
-                      onClick={() => {
-                        setIsOpen(!modalIsOpen);
-                        setModalImg(user.documents[doc].url);
-                        setdoc(doc);
-                      }}
-                    />
+                    {(user.documents[doc].type === "application/jpeg" ||
+                      user.documents[doc].type === "image/png") && (
+                      <img
+                        src={user.documents[doc].url}
+                        onClick={() => {
+                          setIsOpen(!modalIsOpen);
+                          setModalImg(user.documents[doc].url);
+                          setdoc(doc);
+                        }}
+                      />
+                    )}
+
+                    {user.documents[doc].type === "application/pdf" && (
+
+                      <>
+                      <a  href={user.documents[doc].url} className="downloadbtn">
+                      <i
+                            className="fa fa-download "
+                            
+                          ></i>PDF
+                      </a>
+                        
+                      </>
+                    )}
+
                     <div>
                       {user.documents[doc].status === 0 && (
                         <>
@@ -224,8 +248,12 @@ function UnverifiedList({ user }) {
                           ></i>{" "}
                         </>
                       )}
-                      {user.documents[doc].status === 1 && <p style={{color: "green"}}>Accepted</p>}
-                      {user.documents[doc].status === 2 && <p style={{color: "red"}}>Rejected</p>}
+                      {user.documents[doc].status === 1 && (
+                        <p style={{ color: "green" }}>Accepted</p>
+                      )}
+                      {user.documents[doc].status === 2 && (
+                        <p style={{ color: "red" }}>Rejected</p>
+                      )}
                     </div>
 
                     <Modal
@@ -234,11 +262,10 @@ function UnverifiedList({ user }) {
                       contentLabel="Docs"
                       style={{
                         overlay: {
-                          position: 'fixed',
-                          
-                          backgroundColor: 'rgba(0, 0, 0)'
+                          position: "fixed",
+
+                          backgroundColor: "rgba(0, 0, 0)",
                         },
-                        
                       }}
                       ariaHideApp={false}
                     >

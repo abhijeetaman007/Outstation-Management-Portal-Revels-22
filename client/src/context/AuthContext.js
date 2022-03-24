@@ -29,10 +29,9 @@ export default function AuthProvider({ children }) {
           setLoading(false);
           navigate(`/dashboard/`);
         }
-        //  else {
-        //   // CHANGE THIS
-        //   alert("couldnt set category on login");
-        // }
+         else {
+         localStorage.removeItem("tokenid=");
+        }
       } catch (error) {
         console.log(error);
         setLoading(false);
