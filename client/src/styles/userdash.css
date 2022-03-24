@@ -10,6 +10,9 @@
 .fa-times:hover{
   cursor: pointer;
 }
+.loader-wrapper{
+  height: 100px;
+}
 .downloadbtn{
   width: 100%;
   color: white;

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-modal";
+import Loader from "./Loader";
 
 function VerifiedUsers({ role }) {
   const [verifiedList, setVerifiedList] = useState([]);
+  const [loading, setloading] = useState(true)
 
   const getVerifiedUsers = async () => {
     try {
@@ -13,9 +15,11 @@ function VerifiedUsers({ role }) {
           authorization: `${localStorage.getItem("tokenid=")}`,
         },
       });
+      setloading(false);
       setVerifiedList(res.data.data);
       //console.log(res.data);
     } catch (error) {
+      setloading(false)
       localStorage.removeItem("tokenid=");
       window.location.reload();
       console.log(error);
@@ -28,9 +32,11 @@ function VerifiedUsers({ role }) {
   return (
     <div>
       Total Count : {verifiedList.length}
-      {verifiedList.map((user, ind) => {
+      {loading == false ? (<>
+        {verifiedList.map((user, ind) => {
         return <VerifiedList user={user} key={ind} />;
       })}
+      </>) : (<Loader />)}
     </div>
   );
 }

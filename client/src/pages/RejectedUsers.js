@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-modal";
+import Loader from "./Loader";
 
 function RejectedUsers({ role }) {
   const [rejectedList, setrejectedList] = useState([]);
+  const [loading, setloading] = useState(true)
 
   const getRejectedUsers = async () => {
     try {
@@ -13,10 +15,12 @@ function RejectedUsers({ role }) {
         },
       });
       setrejectedList(res.data.data);
+      setloading(false);
       //console.log(res.data);
     } catch (error) {
       localStorage.removeItem("tokenid=");
       window.location.reload();
+      setloading(false);
       //console.log(error.response.data);
     }
   };
@@ -27,9 +31,15 @@ function RejectedUsers({ role }) {
   return (
     <div>
       Total Count : {rejectedList.length}
-      {rejectedList.map((user, ind) => {
-        return <RejectedList user={user} key={ind} />;
-      })}
+      {loading == false ? (
+        <>
+          {rejectedList.map((user, ind) => {
+            return <RejectedList user={user} key={ind} />;
+          })}
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }

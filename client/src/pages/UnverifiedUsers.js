@@ -4,10 +4,12 @@ import toast from "react-hot-toast";
 import Modal from "react-modal";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import Loader from "./Loader";
 
 function UnverifiedUsers() {
   const [unverifiedList, setunverifiedList] = useState([]);
   const [searchUser, setsearchUser] = useState("");
+  const [loading, setloading] = useState(true)
 
   const getUnverifiedUsers = async () => {
     try {
@@ -17,8 +19,10 @@ function UnverifiedUsers() {
         },
       });
       setunverifiedList(res.data.data);
+      setloading(false)
       //console.log(res.data);
     } catch (error) {
+      setloading(false);
       localStorage.removeItem("tokenid=");
       window.location.reload();
       //console.log(error.response);
@@ -30,7 +34,7 @@ function UnverifiedUsers() {
   }, []);
   return (
     <div>
-      Total Count : {unverifiedList.length}
+      Total Unverified : {unverifiedList.length}
       <div className="search-box">
         <input
           type="text"
@@ -41,7 +45,8 @@ function UnverifiedUsers() {
         />
         <i className="fa fa-search "></i>
       </div>
-      {unverifiedList
+      {loading == false ? (<>
+        {unverifiedList
         .filter((user) => {
           const searchTerm = user.name + user.userID;
 
@@ -53,6 +58,7 @@ function UnverifiedUsers() {
         .map((user, ind) => {
           return <UnverifiedList user={user} key={ind} />;
         })}
+      </>): (<Loader />)}
     </div>
   );
 }

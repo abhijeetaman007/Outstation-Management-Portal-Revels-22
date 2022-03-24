@@ -3,6 +3,7 @@ import axios from "axios";
 import "../styles/userdash.css";
 import toast from "react-hot-toast";
 import { confirmAlert } from "react-confirm-alert";
+import Loader from "./Loader";
 
 function CollegeList() {
   const [collges, setcollges] = useState([]);
@@ -11,6 +12,7 @@ function CollegeList() {
   const [collegeState, setcollegeState] = useState("");
   const [expanded, setexpanded] = useState(false);
   const [isMahe, setisMahe] = useState(false);
+  const [itemperpage, setitemperpage] = useState(10);
   const getCollegeList = async () => {
     try {
       const res = await axios.get(`/om/getcolleges`, {
@@ -26,7 +28,6 @@ function CollegeList() {
       //console.log(error.response);
     }
   };
-
 
   const addCollege = async (e) => {
     e.preventDefault();
@@ -121,6 +122,7 @@ function CollegeList() {
   }, []);
   return (
     <div>
+      
       <div className="add-college-btn">
         <div className="unverified-header">
           <p>Add College</p>
@@ -168,21 +170,46 @@ function CollegeList() {
         />
         <i className="fa fa-search "></i>
       </div>
-      {collges
-        .filter((clg) => {
-          const searchTerm = clg.name;
-          return searchTerm.toLowerCase().includes(searchCollege.toLowerCase());
-        })
-        .map((clg, ind) => {
-          return (
-            <div className="college" key={ind}>
-              <h2 className={clg.isMahe ? "isMahe" : ""}>{clg.name}</h2>
-              <i className="fa" onClick={(e) => blockCollegeConfirm(e, `${clg.name}`)}>
-                block
-              </i>
-            </div>
-          );
-        })}
+      
+      
+      
+      {collges.length !=0 ? (
+        <>
+          {collges
+            .slice(0, parseInt(itemperpage))
+            .filter((clg) => {
+              const searchTerm = clg.name;
+              return searchTerm
+                .toLowerCase()
+                .includes(searchCollege.toLowerCase());
+            })
+            .map((clg, ind) => {
+              return (
+                <div className="college" key={ind}>
+                  <h2 className={clg.isMahe ? "isMahe" : ""}>{clg.name}</h2>
+                  <i
+                    className="fa"
+                    onClick={(e) => blockCollegeConfirm(e, `${clg.name}`)}
+                  >
+                    block
+                  </i>
+                </div>
+              );
+            })}
+          <button
+            style={{
+              backgroundColor: "black",
+              padding: "10px",
+              color: "white",
+            }}
+            onClick={(e) => setitemperpage(parseInt(itemperpage) + 10)}
+          >
+            Show More
+          </button>{" "}
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }
