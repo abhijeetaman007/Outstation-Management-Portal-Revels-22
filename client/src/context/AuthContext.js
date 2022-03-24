@@ -33,6 +33,7 @@ export default function AuthProvider({ children }) {
          localStorage.removeItem("tokenid=");
         }
       } catch (error) {
+        localStorage.removeItem("tokenid=");
         console.log(error);
         setLoading(false);
       }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/userdash.css";
 import toast from "react-hot-toast";
+import { confirmAlert } from "react-confirm-alert";
 
 function CollegeList() {
   const [collges, setcollges] = useState([]);
@@ -20,9 +21,13 @@ function CollegeList() {
       setcollges(res.data.data);
       //console.log(res.data);
     } catch (error) {
+      localStorage.removeItem("tokenid=");
+      window.location.reload();
       //console.log(error.response);
     }
   };
+
+
   const addCollege = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("Loading...");
@@ -65,6 +70,23 @@ function CollegeList() {
         id: toastId,
       });
     }
+  };
+
+  const blockCollegeConfirm = (e, name) => {
+    confirmAlert({
+      title: `Block`,
+      message: `${name}`,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => blockCollege(e, `${name}`),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
   };
   const blockCollege = async (e, name) => {
     e.preventDefault();
@@ -155,7 +177,7 @@ function CollegeList() {
           return (
             <div className="college" key={ind}>
               <h2 className={clg.isMahe ? "isMahe" : ""}>{clg.name}</h2>
-              <i className="fa" onClick={(e) => blockCollege(e, `${clg.name}`)}>
+              <i className="fa" onClick={(e) => blockCollegeConfirm(e, `${clg.name}`)}>
                 block
               </i>
             </div>

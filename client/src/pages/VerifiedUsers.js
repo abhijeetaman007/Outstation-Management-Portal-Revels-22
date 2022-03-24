@@ -16,6 +16,8 @@ function VerifiedUsers({ role }) {
       setVerifiedList(res.data.data);
       //console.log(res.data);
     } catch (error) {
+      localStorage.removeItem("tokenid=");
+      window.location.reload();
       console.log(error);
     }
   };

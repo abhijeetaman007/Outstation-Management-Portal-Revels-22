@@ -22,6 +22,8 @@ function UserDashboard() {
       setuser(res.data.data);
       //console.log(res.data);
     } catch (error) {
+      localStorage.removeItem("tokenid=");
+      window.location.reload();
       //console.log(error.response);
     }
   };
