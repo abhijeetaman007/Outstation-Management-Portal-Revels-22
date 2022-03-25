@@ -250,8 +250,8 @@ const rejectUser = async (req, res) => {
                 .send({ success: false, msg: 'User Not Found' });
 
         // Reject Mail
-        // let sendMsg = `Your verification has been rejected, found issues in following documents, please upload them again \n ${message}`;
-        // mailer(user.email, "Verify Email - REVELS '22", sendMsg);
+         let sendMsg = `Your verification has been rejected, please upload the documents again`;
+         mailer(user.email, "Document Verification Failed - REVELS '22", sendMsg);
 
         //TODO: Rejection message to be pushed as notification
         return res.status(200).send({ success: true, msg: 'User Rejected' });
