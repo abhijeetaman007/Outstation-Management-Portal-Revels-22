@@ -78,9 +78,13 @@ function VerifiedList({ user }) {
                   <p>Arrival :</p>
                   <p>
                     <i className="fa fa-calendar"></i>{" "}
+                    {user.accommodation.arrivalDateTime == null ? <span> NA </span> :
+                    <>
                     {user.accommodation.arrivalDateTime
                       .toString()
                       .substr(0, 10)}
+                    </>
+                      }
                   </p>
                 </>
               ) : (

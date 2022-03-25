@@ -81,9 +81,13 @@ function RejectedList({ user }) {
                   <p>Arrival :</p>
                   <p>
                     <i className="fa fa-calendar"></i>{" "}
+                    {user.accommodation.arrivalDateTime == null ? <>NA</>:
+                    <>
                     {user.accommodation.arrivalDateTime
                       .toString()
                       .substr(0, 10)}
+                    </>
+                      }
                   </p>
                 </>
               ) : (
