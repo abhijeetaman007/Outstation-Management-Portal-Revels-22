@@ -229,6 +229,7 @@ const verifyUser = async (req, res) => {
                 .send({ success: false, msg: 'No User found' });
 
         // TODO: verified notification to be pushed
+        
 
         return res.status(200).send({ success: true, msg: 'User Verified' });
     } catch (err) {
