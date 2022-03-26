@@ -44,8 +44,9 @@ const addMultipleColleges = async (req, res) => {
         let { colleges } = req.body;
         colleges.forEach(async (college) => {
             try {
+                let collegeName = college.name.toUpperCase() 
                 let newCollege = new College({
-                    name: college.name,
+                    name: collegeName,
                     // isMahe:college.isMahe,
                     state: college.state,
                 });
@@ -75,8 +76,9 @@ const addCollege = async (req, res) => {
             return res
                 .status(401)
                 .json({ success: false, msg: 'College Already Registered' });
+        let collegeName = name.toUpperCase() 
         let newcollege = new College({
-            name,
+            name:collegeName,
             isMahe,
             state,
         });
