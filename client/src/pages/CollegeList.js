@@ -176,13 +176,13 @@ function CollegeList() {
       {collges.length !=0 ? (
         <>
           {collges
-            .slice(0, parseInt(itemperpage))
+            
             .filter((clg) => {
               const searchTerm = clg.name;
               return searchTerm
                 .toLowerCase()
                 .includes(searchCollege.toLowerCase());
-            })
+            }).slice(0, parseInt(itemperpage))
             .map((clg, ind) => {
               return (
                 <div className="college" key={ind}>
