@@ -95,8 +95,9 @@ function VerifiedList({ user }) {
               )}
             </div>
           </div>
+          
           <div className="doc-img">
-            {user.documets != undefined && <>
+            {user.documents != undefined && <>
             
               {Object.keys(user.documents).map((doc, ind) => {
               return (
