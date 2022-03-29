@@ -10,7 +10,7 @@ import UserDashboard from "./UserDashboard";
 function UnverifiedUsers() {
   const [unverifiedList, setunverifiedList] = useState([]);
   const [searchUser, setsearchUser] = useState("");
-  const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true);
 
   const getUnverifiedUsers = async () => {
     try {
@@ -20,7 +20,7 @@ function UnverifiedUsers() {
         },
       });
       setunverifiedList(res.data.data);
-      setloading(false)
+      setloading(false);
       //console.log(res.data);
     } catch (error) {
       setloading(false);
@@ -36,37 +36,46 @@ function UnverifiedUsers() {
   return (
     <UserDashboard activeTab={1}>
       <div>
-      Total Unverified : {unverifiedList.length}
-      <div className="search-box">
-        <input
-          type="text"
-          className="login-input start-label"
-          placeholder="Search User"
-          value={searchUser}
-          onChange={(e) => setsearchUser(e.target.value)}
-        />
-        <i className="fa fa-search "></i>
-      </div>
-      {loading == false ? (<>
-        {unverifiedList
-        .filter((user) => {
-          const searchTerm = user.name + user.userID;
+        Total Unverified : {unverifiedList.length}
+        <div className="search-box">
+          <input
+            type="text"
+            className="login-input start-label"
+            placeholder="Search User"
+            value={searchUser}
+            onChange={(e) => setsearchUser(e.target.value)}
+          />
+          <i className="fa fa-search "></i>
+        </div>
+        {loading == false ? (
+          <>
+            {unverifiedList
+              .filter((user) => {
+                const searchTerm = user.name + user.userID;
 
-          return (
-            searchTerm.toLowerCase().includes(searchUser.toLowerCase()) &&
-            user.documents != undefined
-          );
-        })
-        .map((user, ind) => {
-          return <UnverifiedList user={user} key={ind} getUnverifiedUsers={getUnverifiedUsers}/>;
-        })}
-      </>): (<Loader />)}
-    </div>
+                return searchTerm
+                  .toLowerCase()
+                  .includes(searchUser.toLowerCase());
+              })
+              .map((user, ind) => {
+                return (
+                  <UnverifiedList
+                    user={user}
+                    key={ind}
+                    getUnverifiedUsers={getUnverifiedUsers}
+                  />
+                );
+              })}
+          </>
+        ) : (
+          <Loader />
+        )}
+      </div>
     </UserDashboard>
   );
 }
 
-function UnverifiedList({ user , getUnverifiedUsers}) {
+function UnverifiedList({ user, getUnverifiedUsers }) {
   const [expanded, setexpanded] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalImg, setModalImg] = useState("");
@@ -199,14 +208,15 @@ function UnverifiedList({ user , getUnverifiedUsers}) {
                   <p>Arrival :</p>
                   <p>
                     <i className="fa fa-calendar"></i>{" "}
-                    {user.accommodation.arrivalDateTime == null ? <span> NA </span> :
-                    <>
-                    {user.accommodation.arrivalDateTime
-                      .toString()
-                      .substr(0, 10)}
-                    </>
-                      }
-                    
+                    {user.accommodation.arrivalDateTime == null ? (
+                      <span> NA </span>
+                    ) : (
+                      <>
+                        {user.accommodation.arrivalDateTime
+                          .toString()
+                          .substr(0, 10)}
+                      </>
+                    )}
                   </p>
                 </>
               ) : (
@@ -217,97 +227,114 @@ function UnverifiedList({ user , getUnverifiedUsers}) {
               )}
             </div>
           </div>
-          <div className="doc-img">
-            {Object.keys(user.documents).map((doc, ind) => {
-              return (
-                <>
-                  <div>
-                    <p>{doc}</p>
-                    {(user.documents[doc].type === "image/jpeg" ||
-                      user.documents[doc].type === "image/png") && (
-                      <img
-                        src={user.documents[doc].url}
-                        onClick={() => {
-                          setIsOpen(!modalIsOpen);
-                          setModalImg(user.documents[doc].url);
-                          setdoc(doc);
-                        }}
-                      />
-                    )}
 
-                    {user.documents[doc].type === "application/pdf" && (
-
-                      <>
-                      <a  href={user.documents[doc].url} className="downloadbtn">
-                      <i
-                            className="fa fa-download "
-                            
-                          ></i>PDF
-                      </a>
-                        
-                      </>
-                    )}
-
+          {user.documents && (
+            <div className="doc-img">
+              {Object.keys(user.documents).map((doc, ind) => {
+                return (
+                  <>
                     <div>
-                      {user.documents[doc].status === 0 && (
+                      <p>{doc}</p>
+                      {(user.documents[doc].type === "image/jpeg" ||
+                        user.documents[doc].type === "image/png") && (
+                        <img
+                          src={user.documents[doc].url}
+                          onClick={() => {
+                            setIsOpen(!modalIsOpen);
+                            setModalImg(user.documents[doc].url);
+                            setdoc(doc);
+                          }}
+                        />
+                      )}
+
+                      {user.documents[doc].type === "application/pdf" && (
                         <>
-                          <i
-                            className="fa fa-check fa-2x"
-                            onClick={(e) =>
-                              changeFileStatus(e, 1, `${user.userID}`, `${doc}`)
-                            }
-                          ></i>
-                          <i
-                            className="fa fa-times fa-2x"
-                            onClick={(e) =>
-                              changeFileStatus(e, 2, `${user.userID}`, `${doc}`)
-                            }
-                          ></i>{" "}
+                          <a
+                            href={user.documents[doc].url}
+                            className="downloadbtn"
+                          >
+                            <i className="fa fa-download "></i>PDF
+                          </a>
                         </>
                       )}
-                      {user.documents[doc].status === 1 && (
-                        <p style={{ color: "green" }}>Accepted</p>
-                      )}
-                      {user.documents[doc].status === 2 && (
-                        <p style={{ color: "red" }}>Rejected</p>
-                      )}
+
+                      <div>
+                        {user.documents[doc].status === 0 && (
+                          <>
+                            <i
+                              className="fa fa-check fa-2x"
+                              onClick={(e) =>
+                                changeFileStatus(
+                                  e,
+                                  1,
+                                  `${user.userID}`,
+                                  `${doc}`
+                                )
+                              }
+                            ></i>
+                            <i
+                              className="fa fa-times fa-2x"
+                              onClick={(e) =>
+                                changeFileStatus(
+                                  e,
+                                  2,
+                                  `${user.userID}`,
+                                  `${doc}`
+                                )
+                              }
+                            ></i>{" "}
+                          </>
+                        )}
+                        {user.documents[doc].status === 1 && (
+                          <p style={{ color: "green" }}>Accepted</p>
+                        )}
+                        {user.documents[doc].status === 2 && (
+                          <p style={{ color: "red" }}>Rejected</p>
+                        )}
+                      </div>
+
+                      <Modal
+                        isOpen={modalIsOpen}
+                        onRequestClose={() => setIsOpen(!modalIsOpen)}
+                        contentLabel="Docs"
+                        style={{
+                          overlay: {
+                            position: "fixed",
+
+                            backgroundColor: "rgba(0, 0, 0)",
+                          },
+                        }}
+                        ariaHideApp={false}
+                      >
+                        <p>{docName}</p>
+                        <img src={modalImg} />
+                      </Modal>
                     </div>
-
-                    <Modal
-                      isOpen={modalIsOpen}
-                      onRequestClose={() => setIsOpen(!modalIsOpen)}
-                      contentLabel="Docs"
-                      style={{
-                        overlay: {
-                          position: "fixed",
-
-                          backgroundColor: "rgba(0, 0, 0)",
-                        },
-                      }}
-                      ariaHideApp={false}
-                    >
-                      <p>{docName}</p>
-                      <img src={modalImg} />
-                    </Modal>
-                  </div>
-                </>
-              );
-            })}
-          </div>
-          <div className="btns">
-            <button
-              className="verify"
-              onClick={(e) => changeStatusButton(e, `${user.userID}`, "Verify")}
-            >
-              Verify
-            </button>
-            <button
-              className="verify reject"
-              onClick={(e) => changeStatusButton(e, `${user.userID}`, "Reject")}
-            >
-              Reject
-            </button>
-          </div>
+                  </>
+                );
+              })}
+            </div>
+          )}
+          {user.documents && (
+            <div className="btns">
+              <button
+                className="verify"
+                onClick={(e) =>
+                  changeStatusButton(e, `${user.userID}`, "Verify")
+                }
+              >
+                Verify
+              </button>
+              <button
+                className="verify reject"
+                onClick={(e) =>
+                  changeStatusButton(e, `${user.userID}`, "Reject")
+                }
+              >
+                Reject
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
