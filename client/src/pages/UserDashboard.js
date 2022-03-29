@@ -8,9 +8,11 @@ import RejectedUsers from "./RejectedUsers";
 import logo from "../assets/revels-logo.png";
 import axios from "axios";
 import VerifiedUsers from "./VerifiedUsers";
-function UserDashboard() {
+import { Link } from 'react-router-dom';
+
+function UserDashboard({children , activeTab}) {
   const auth = useAuth();
-  const [tab, settab] = useState(0);
+  const [tab, settab] = useState(activeTab);
   const [user, setuser] = useState(null);
   const getOMUser = async () => {
     try {
@@ -30,6 +32,7 @@ function UserDashboard() {
 
   useEffect(() => {
     getOMUser();
+    
   }, []);
 
   if (!user) {
@@ -50,33 +53,43 @@ function UserDashboard() {
       </p>
       <div className="tabs-section">
         {/* <div className="tab"><i class="fa fa-university"></i>Colleges</div> */}
+        <Link to="/dashboard/colleges">
         <div
-          className={tab === 0 ? "tab" : "tab inactive"}
+          className={tab == 0 ? "tab" : "tab inactive"}
           onClick={() => settab(0)}
         >
           Colleges
         </div>
+        </Link>
+        
+        <Link to="/dashboard/unverified">
         <div
-          className={tab === 1 ? "tab" : "tab inactive"}
+          className={tab == 1 ? "tab" : "tab inactive"}
           onClick={() => settab(1)}
         >
           <i className="fa fa-info"></i>Unverified Users
         </div>
+        </Link>
+        <Link to="/dashboard/rejected">
         <div
-          className={tab === 2 ? "tab" : "tab inactive"}
+          className={tab == 2 ? "tab" : "tab inactive"}
           onClick={() => settab(2)}
         >
           <i className="fa fa-ban"></i>Rejected Users
         </div>
+        </Link>
+        <Link to="/dashboard/verified">
         <div
-          className={tab === 3 ? "tab" : "tab inactive"}
+          className={tab == 3 ? "tab" : "tab inactive"}
           onClick={() => settab(3)}
         >
           Verified
         </div>
+        </Link>
       </div>
       <div className="tab-content">
-        {tab === 0 ? (
+        {children}
+        {/* {tab === 0 ? (
           <CollegeList />
         ) : tab === 1 ? (
           <UnverifiedUsers />
@@ -84,7 +97,7 @@ function UserDashboard() {
           <RejectedUsers role={tab}/>
         ) : (
           <VerifiedUsers role={tab}/>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import "../styles/userdash.css";
 import toast from "react-hot-toast";
 import { confirmAlert } from "react-confirm-alert";
 import Loader from "./Loader";
+import UserDashboard from "./UserDashboard";
 
 function CollegeList() {
   const [collges, setcollges] = useState([]);
@@ -121,7 +122,8 @@ function CollegeList() {
     getCollegeList();
   }, []);
   return (
-    <div>
+    <UserDashboard activeTab={0}>
+      <div>
       
       <div className="add-college-btn">
         <div className="unverified-header">
@@ -211,6 +213,7 @@ function CollegeList() {
         <Loader />
       )}
     </div>
+    </UserDashboard>
   );
 }
 

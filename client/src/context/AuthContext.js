@@ -27,7 +27,10 @@ export default function AuthProvider({ children }) {
         if (res.data.success) {
           setuser(res.data.data);
           setLoading(false);
-          navigate(`/dashboard/`);
+          if(window.location.pathname =='/')navigate(`/dashboard/colleges`);
+         else return;
+          //window.location.reload();
+          navigate(`/dashboard/colleges`);
         }
          else {
          localStorage.removeItem("tokenid=");

@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Loader from "./Loader";
+import UserDashboard from "./UserDashboard";
 
 function UnverifiedUsers() {
   const [unverifiedList, setunverifiedList] = useState([]);
@@ -33,7 +34,8 @@ function UnverifiedUsers() {
     getUnverifiedUsers();
   }, []);
   return (
-    <div>
+    <UserDashboard activeTab={1}>
+      <div>
       Total Unverified : {unverifiedList.length}
       <div className="search-box">
         <input
@@ -56,14 +58,15 @@ function UnverifiedUsers() {
           );
         })
         .map((user, ind) => {
-          return <UnverifiedList user={user} key={ind} />;
+          return <UnverifiedList user={user} key={ind} getUnverifiedUsers={getUnverifiedUsers}/>;
         })}
       </>): (<Loader />)}
     </div>
+    </UserDashboard>
   );
 }
 
-function UnverifiedList({ user }) {
+function UnverifiedList({ user , getUnverifiedUsers}) {
   const [expanded, setexpanded] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalImg, setModalImg] = useState("");
@@ -115,7 +118,7 @@ function UnverifiedList({ user }) {
       //console.log(res.data);
       if (res.data.success) {
         toast.success(res.data.msg, { id: toastId });
-        window.location.reload();
+        getUnverifiedUsers();
         //console.log(res.data.category);
         //navigate(`/admin/sdd`);
       } else {
@@ -143,7 +146,8 @@ function UnverifiedList({ user }) {
       //console.log(res.data);
       if (res.data.success) {
         toast.success(res.data.msg, { id: toastId });
-        window.location.reload();
+        getUnverifiedUsers();
+        //window.location.reload();
         //console.log(res.data.category);
         //navigate(`/admin/sdd`);
       } else {
@@ -219,7 +223,7 @@ function UnverifiedList({ user }) {
                 <>
                   <div>
                     <p>{doc}</p>
-                    {(user.documents[doc].type === "application/jpeg" ||
+                    {(user.documents[doc].type === "image/jpeg" ||
                       user.documents[doc].type === "image/png") && (
                       <img
                         src={user.documents[doc].url}

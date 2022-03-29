@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import Loader from "./Loader";
+import UserDashboard from "./UserDashboard";
 
 function RejectedUsers({ role }) {
   const [rejectedList, setrejectedList] = useState([]);
@@ -29,7 +30,8 @@ function RejectedUsers({ role }) {
     getRejectedUsers();
   }, []);
   return (
-    <div>
+    <UserDashboard activeTab={2}>
+      <div>
       Total Count : {rejectedList.length}
       {loading == false ? (
         <>
@@ -41,6 +43,7 @@ function RejectedUsers({ role }) {
         <Loader />
       )}
     </div>
+    </UserDashboard>
   );
 }
 
@@ -104,13 +107,30 @@ function RejectedList({ user }) {
                 <>
                   <div>
                     <p>{doc}</p>
-                    <img
-                      src={user.documents[doc].url}
-                      onClick={() => {
-                        setIsOpen(!modalIsOpen);
-                        setModalImg(user.documents[doc].url);
-                      }}
-                    />
+                    {(user.documents[doc].type === "image/jpeg" ||
+                      user.documents[doc].type === "image/png") && (
+                      <img
+                        src={user.documents[doc].url}
+                        onClick={() => {
+                          setIsOpen(!modalIsOpen);
+                          setModalImg(user.documents[doc].url);
+                          setdoc(doc);
+                        }}
+                      />
+                    )}
+
+                    {user.documents[doc].type === "application/pdf" && (
+
+                      <>
+                      <a  href={user.documents[doc].url} className="downloadbtn">
+                      <i
+                            className="fa fa-download "
+                            
+                          ></i>PDF
+                      </a>
+                        
+                      </>
+                    )}
 
                     <Modal
                       isOpen={modalIsOpen}
